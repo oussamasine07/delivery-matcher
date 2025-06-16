@@ -15,7 +15,7 @@ public class AuthController {
         return  null;
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login () {
 
         return null;
