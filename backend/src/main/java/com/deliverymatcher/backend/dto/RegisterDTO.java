@@ -1,11 +1,13 @@
 package com.deliverymatcher.backend.dto;
 
+import com.deliverymatcher.backend.validation.IsPasswordConfirmed;
 import com.deliverymatcher.backend.validation.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@IsPasswordConfirmed
 public record RegisterDTO (
     @NotBlank(message = "first name is required")
     String first_name,
