@@ -2,7 +2,10 @@ package com.deliverymatcher.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.List;
 
 @Entity
 @Table(name = "drivers")
@@ -16,6 +19,9 @@ public class Driver extends User {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToMany(mappedBy = "driver")
+    private List<Announcement> announcements;
 
     public Driver () {}
 

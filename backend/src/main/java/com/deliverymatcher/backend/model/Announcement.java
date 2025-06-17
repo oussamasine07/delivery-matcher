@@ -41,6 +41,9 @@ public class Announcement {
     )
     private Set<City> passedByCities = new HashSet<>();
 
+    @ManyToOne
+    private Driver driver;
+
     @OneToMany(mappedBy = "announcement")
     private List<Journy> journies;
 
