@@ -130,7 +130,7 @@ public class AuthService {
                 authUserDTO = driverMapper.toDTO((Driver) authenticatedUser);
                 break;
         }
-        return authUserDTO; // userMapper.toDTO(authenticatedUser);
+        return authUserDTO;
     }
 
 
