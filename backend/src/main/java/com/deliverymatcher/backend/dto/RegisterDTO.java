@@ -22,7 +22,7 @@ public record RegisterDTO (
     String email,
 
     @NotBlank(message = "password is required")
-    @Min(value = 6 , message = "password should be at least 6 charachters")
+    @Size(min = 6 , message = "password should be at least 6 charachters")
     String password,
 
     @NotBlank(message = "please confirm your password")
