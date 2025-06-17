@@ -1,7 +1,9 @@
 package com.deliverymatcher.backend.controller;
 
+import com.deliverymatcher.backend.dto.AdminLoginDTO;
 import com.deliverymatcher.backend.dto.LoginDTO;
 import com.deliverymatcher.backend.dto.RegisterDTO;
+import com.deliverymatcher.backend.model.Admin;
 import com.deliverymatcher.backend.model.Driver;
 import com.deliverymatcher.backend.model.Sender;
 import com.deliverymatcher.backend.model.User;
@@ -33,7 +35,9 @@ public class AuthController {
 
     @PostMapping("/user/login")
     public ResponseEntity<?> login (@Valid @RequestBody LoginDTO loginDTO) {
-
+        System.out.println("*******************************************");
+        System.out.println("user login");
+        System.out.println("*******************************************");
         User user = null;
         switch (loginDTO.type()) {
             case "sender":
@@ -49,6 +53,20 @@ public class AuthController {
 
 
         return authService.loginUser(user);
+    }
+
+    @PostMapping("/admin/login")
+    public ResponseEntity<?> loginAdmin ( @RequestBody AdminLoginDTO adminLoginDTO) {
+
+        System.out.println("*******************************************");
+        System.out.println("admin login");
+        System.out.println("*******************************************");
+
+        User admin = new Admin();
+        admin.setEmail(adminLoginDTO.email());
+        admin.setPassword(adminLoginDTO.password());
+
+        return authService.loginUser(admin);
     }
 
 }

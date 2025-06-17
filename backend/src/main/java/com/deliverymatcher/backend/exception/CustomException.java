@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,19 @@ public class CustomException {
                 });
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler( value = { PasswordIncorrectException.class } )
+    public ResponseEntity<?> handlePasswordIncorrectException (
+            PasswordIncorrectException ex,
+            WebRequest req
+    ) {
+
+        Map<String, String> body = new HashMap<>();
+        body.put("password", ex.getMessage());
+
+        return new ResponseEntity<>( body, HttpStatus.BAD_REQUEST );
+
     }
 
 }

@@ -38,6 +38,10 @@ public class SecurityConfig {
                                 "/user/login"
                         )
                         .permitAll()
+                        .requestMatchers(
+                                "/admin/login"
+                        )
+                        .permitAll()
                         .anyRequest()
                         .authenticated()  // Other requests need auth
                 )
