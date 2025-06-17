@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @IsPasswordConfirmed
-@IsEmailAlreadyExists
 public record RegisterDTO (
     @NotBlank(message = "first name is required")
     String first_name,
@@ -19,6 +18,7 @@ public record RegisterDTO (
 
     @NotBlank(message = "email is required")
     @Email(message = "make sure you put a valid email")
+    @IsEmailAlreadyExists
     String email,
 
     @NotBlank(message = "password is required")

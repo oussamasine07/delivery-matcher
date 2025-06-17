@@ -6,7 +6,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.TYPE)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = IsEmailAlreadyExistsValidator.class)
