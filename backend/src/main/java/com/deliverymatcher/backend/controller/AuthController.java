@@ -1,6 +1,9 @@
 package com.deliverymatcher.backend.controller;
 
+import com.deliverymatcher.backend.dto.LoginDTO;
 import com.deliverymatcher.backend.dto.RegisterDTO;
+import com.deliverymatcher.backend.model.Driver;
+import com.deliverymatcher.backend.model.Sender;
 import com.deliverymatcher.backend.model.User;
 import com.deliverymatcher.backend.service.AuthService;
 import jakarta.validation.Valid;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
 public class AuthController {
 
     private final AuthService authService;
@@ -23,16 +25,30 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public ResponseEntity<?> register ( @Valid @RequestBody RegisterDTO registerDTO ) {
         User registeredUser = authService.registerUser(registerDTO);
         return  new ResponseEntity<>(registeredUser, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login () {
+    @PostMapping("/user/login")
+    public ResponseEntity<?> login (@Valid @RequestBody LoginDTO loginDTO) {
 
-        return null;
+        User user = null;
+        switch (loginDTO.type()) {
+            case "sender":
+                user = new Sender();
+                break;
+            case "driver":
+                user = new Driver();
+                break;
+        }
+
+        user.setEmail(loginDTO.email());
+        user.setPassword(loginDTO.password());
+
+
+        return authService.loginUser(user);
     }
 
 }
