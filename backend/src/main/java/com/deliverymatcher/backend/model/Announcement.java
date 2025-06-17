@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import javax.swing.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,11 +41,83 @@ public class Announcement {
     )
     private Set<City> passedByCities = new HashSet<>();
 
+    @OneToMany(mappedBy = "announcement")
+    private List<Journy> journies;
+
     public Announcement () {}
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartureDestination() {
+        return departureDestination;
+    }
+
+    public void setDepartureDestination(String departureDestination) {
+        this.departureDestination = departureDestination;
+    }
+
+    public String getFinalDestination() {
+        return finalDestination;
+    }
+
+    public void setFinalDestination(String finalDestination) {
+        this.finalDestination = finalDestination;
+    }
+
+    public double getMaxDimentions() {
+        return maxDimentions;
+    }
+
+    public void setMaxDimentions(double maxDimentions) {
+        this.maxDimentions = maxDimentions;
+    }
+
+    public String getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(String goodsType) {
+        this.goodsType = goodsType;
+    }
+
+    public double getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(double capacity) {
+        this.capacity = capacity;
+    }
+
+    public Set<City> getPassedByCities() {
+        return passedByCities;
+    }
+
+    public void setPassedByCities(Set<City> passedByCities) {
+        this.passedByCities = passedByCities;
+    }
+
+    public List<Journy> getJournies() {
+        return journies;
+    }
+
+    public void setJournies(List<Journy> journies) {
+        this.journies = journies;
+    }
 }
 
 
