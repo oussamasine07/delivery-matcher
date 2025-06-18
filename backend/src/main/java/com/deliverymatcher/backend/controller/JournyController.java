@@ -6,6 +6,7 @@ import com.deliverymatcher.backend.dto.JournyDTO;
 import com.deliverymatcher.backend.exception.NotFoundExeption;
 import com.deliverymatcher.backend.model.City;
 import com.deliverymatcher.backend.model.Journy;
+import com.deliverymatcher.backend.model.JournyStatus;
 import com.deliverymatcher.backend.repository.CityRepository;
 import com.deliverymatcher.backend.service.JournyService;
 import jakarta.validation.Valid;
@@ -45,6 +46,7 @@ public class JournyController {
         journy.setDate( journyDTO.date() );
         journy.setTakeOffAt( journyDTO.take_off_at() );
         journy.setArrivedAt( journyDTO.arrived_at() );
+        if (journyDTO.journyStatus() == null ) journy.setJournyStatus(JournyStatus.STAND_BY);
 
         City city = cityRepository.findById(journyDTO.road_to()).orElseThrow();
 

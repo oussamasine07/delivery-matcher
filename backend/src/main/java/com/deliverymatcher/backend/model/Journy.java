@@ -28,7 +28,7 @@ public class Journy {
     private City roadTo;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "journy_stats", columnDefinition = "VARCHAR(255) DEFAULT 'STAND_BY'")
+    @Column(name = "journy_stats", columnDefinition = "VARCHAR(255) DEFAULT 'STAND_BY'", nullable = false)
     private JournyStatus journyStatus;
 
     @ManyToOne
