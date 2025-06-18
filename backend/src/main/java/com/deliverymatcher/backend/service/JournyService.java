@@ -27,6 +27,11 @@ public class JournyService {
         return new ResponseEntity<>(journies, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> show (Long id) {
+        Journy journy = journyRepository.findById( id ).orElseThrow();
+        return new ResponseEntity<>(journy, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> create (Journy journy) {
         Journy newJourny = journyRepository.save( journy );
         return new ResponseEntity<>(newJourny, HttpStatus.OK);

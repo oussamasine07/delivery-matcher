@@ -31,6 +31,11 @@ public class JournyController {
         return journyService.index();
     }
 
+    @GetMapping("/show/{id}")
+    public ResponseEntity<?> showJourny (@PathVariable Long id) {
+        return journyService.show( id );
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createJourny (@Valid @RequestBody JournyDTO journyDTO) {
 
