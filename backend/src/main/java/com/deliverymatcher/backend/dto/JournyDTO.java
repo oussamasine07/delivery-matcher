@@ -12,23 +12,25 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record JournyDTO (
-    @NotBlank(message = "date is required")
+
+    @NotNull(message = "date is required")
     @NextDate
     LocalDate date,
 
-    @NotBlank(message = "take off time is required")
+    @NotNull(message = "take off time is required")
     @NextTime
     LocalTime take_off_at,
 
-    @NotBlank(message = "arrived at time is required")
+    @NotNull(message = "arrived at time is required")
     @NextTime
     LocalTime arrived_at,
 
-    @NotBlank(message = "road to is required")
-    City road_to,
-
     @IsValidJournyStatus
-    JournyStatus journyStatus
+    JournyStatus journyStatus,
+
+    Long road_to
+
+
 
 ) {
 }

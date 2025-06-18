@@ -15,6 +15,11 @@ public class City {
     @OneToOne(mappedBy = "roadTo")
     private Journy journy;
 
-
-
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

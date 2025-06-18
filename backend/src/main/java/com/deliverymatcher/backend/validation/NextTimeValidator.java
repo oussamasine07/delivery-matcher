@@ -9,6 +9,6 @@ public class NextTimeValidator implements ConstraintValidator<NextTime, LocalTim
     @Override
     public boolean isValid(LocalTime localTime, ConstraintValidatorContext constraintValidatorContext) {
         LocalTime currentTime = LocalTime.now();
-        return localTime.isBefore(currentTime);
+        return !localTime.isBefore(currentTime);
     }
 }

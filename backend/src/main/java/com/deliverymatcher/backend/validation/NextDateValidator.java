@@ -10,6 +10,6 @@ public class NextDateValidator implements ConstraintValidator<NextDate, LocalDat
     @Override
     public boolean isValid(LocalDate date, ConstraintValidatorContext constraintValidatorContext) {
         LocalDate currentDate = LocalDate.now();
-        return date.isBefore(currentDate);
+        return !date.isBefore(currentDate);
     }
 }
