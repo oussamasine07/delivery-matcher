@@ -30,6 +30,19 @@ public class JournyService {
         return new ResponseEntity<>(newJourny, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> update (Journy journy, Long id) {
+
+        Journy updateJourny = journyRepository.findById( id ).orElseThrow();
+
+        updateJourny.setDate( journy.getDate() );
+        updateJourny.setTakeOffAt( journy.getTakeOffAt() );
+        updateJourny.setArrivedAt( journy.getArrivedAt() );
+        updateJourny.setRoadTo( journy.getRoadTo() );
+
+        return new ResponseEntity(journyRepository.save( updateJourny ), HttpStatus.OK);
+
+    }
+
 }
 
 

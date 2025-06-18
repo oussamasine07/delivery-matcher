@@ -48,5 +48,22 @@ public class JournyController {
         return journyService.create(journy);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateJourny (@Valid @RequestBody JournyDTO journyDTO, @PathVariable Long id) {
+
+        Journy journy = new Journy();
+
+        journy.setDate( journyDTO.date() );
+        journy.setTakeOffAt( journyDTO.take_off_at() );
+        journy.setArrivedAt( journyDTO.arrived_at() );
+
+        City city = cityRepository.findById(journyDTO.road_to()).orElseThrow();
+
+        journy.setRoadTo( city );
+
+        return journyService.update(journy, id);
+
+    }
+
 
 }
