@@ -30,15 +30,15 @@ public class TravelController {
         this.journyRepository = journyRepository;
     }
 
-    //@GetMapping
-//    public ResponseEntity<?> getJournies () {
-//        return journyService.index();
-//    }
-//
-//    @GetMapping("/show/{id}")
-//    public ResponseEntity<?> showJourny (@PathVariable Long id) {
-//        return journyService.show( id );
-//    }
+    @GetMapping
+    public ResponseEntity<?> getJournies () {
+        return travelService.index();
+    }
+
+    @GetMapping("/show/{id}")
+    public ResponseEntity<?> showJourny (@PathVariable Long id) {
+        return travelService.show( id );
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createTravel (@Valid @RequestBody TravelDTO travelDTO) {
