@@ -4,6 +4,7 @@ package com.deliverymatcher.backend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "journies")
@@ -17,10 +18,10 @@ public class Journy {
     private LocalDate date;
 
     @Column(name = "take_off_at", nullable = false)
-    private LocalDate takeOffAt;
+    private LocalTime takeOffAt;
 
     @Column(name = "arrived_at", nullable = true)
-    private LocalDate arrivedAt;
+    private LocalTime arrivedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "road_to", referencedColumnName = "id")
@@ -49,19 +50,19 @@ public class Journy {
         this.date = date;
     }
 
-    public LocalDate getTakeOffAt() {
+    public LocalTime getTakeOffAt() {
         return takeOffAt;
     }
 
-    public void setTakeOffAt(LocalDate takeOffAt) {
+    public void setTakeOffAt(LocalTime takeOffAt) {
         this.takeOffAt = takeOffAt;
     }
 
-    public LocalDate getArrivedAt() {
+    public LocalTime getArrivedAt() {
         return arrivedAt;
     }
 
-    public void setArrivedAt(LocalDate arrivedAt) {
+    public void setArrivedAt(LocalTime arrivedAt) {
         this.arrivedAt = arrivedAt;
     }
 
