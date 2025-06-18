@@ -18,11 +18,11 @@ public class Announcement {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "departure_destination")
-    private String departureDestination;
-
-    @Column(name = "final_destination")
-    private String finalDestination;
+//    @Column(name = "departure_destination")
+//    private String departureDestination;
+//
+//    @Column(name = "final_destination")
+//    private String finalDestination;
 
     @Column(name = "max_dimentions")
     private double maxDimentions;
@@ -33,13 +33,13 @@ public class Announcement {
     @Column(name = "capacity")
     private double capacity;
 
-    @ManyToMany
-    @JoinTable(
-            name = "passed_by_cities",
-            joinColumns = @JoinColumn(name = "announcement_id"),
-            inverseJoinColumns = @JoinColumn(name = "city_id")
-    )
-    private Set<City> passedByCities = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "passed_by_cities",
+//            joinColumns = @JoinColumn(name = "announcement_id"),
+//            inverseJoinColumns = @JoinColumn(name = "city_id")
+//    )
+//    private Set<City> passedByCities = new HashSet<>();
 
     @ManyToOne
     private Driver driver;
@@ -66,21 +66,21 @@ public class Announcement {
         this.name = name;
     }
 
-    public String getDepartureDestination() {
-        return departureDestination;
-    }
-
-    public void setDepartureDestination(String departureDestination) {
-        this.departureDestination = departureDestination;
-    }
-
-    public String getFinalDestination() {
-        return finalDestination;
-    }
-
-    public void setFinalDestination(String finalDestination) {
-        this.finalDestination = finalDestination;
-    }
+//    public String getDepartureDestination() {
+//        return departureDestination;
+//    }
+//
+//    public void setDepartureDestination(String departureDestination) {
+//        this.departureDestination = departureDestination;
+//    }
+//
+//    public String getFinalDestination() {
+//        return finalDestination;
+//    }
+//
+//    public void setFinalDestination(String finalDestination) {
+//        this.finalDestination = finalDestination;
+//    }
 
     public double getMaxDimentions() {
         return maxDimentions;
@@ -106,13 +106,13 @@ public class Announcement {
         this.capacity = capacity;
     }
 
-    public Set<City> getPassedByCities() {
-        return passedByCities;
-    }
-
-    public void setPassedByCities(Set<City> passedByCities) {
-        this.passedByCities = passedByCities;
-    }
+//    public Set<City> getPassedByCities() {
+//        return passedByCities;
+//    }
+//
+//    public void setPassedByCities(Set<City> passedByCities) {
+//        this.passedByCities = passedByCities;
+//    }
 
     public List<Journy> getJournies() {
         return journies;

@@ -12,9 +12,6 @@ public class City {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "roadTo")
-    private Journy journy;
-
     @Override
     public String toString() {
         return "City{" +

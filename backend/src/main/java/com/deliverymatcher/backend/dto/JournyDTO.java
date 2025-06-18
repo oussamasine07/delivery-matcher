@@ -10,26 +10,18 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public record JournyDTO (
 
-    @NotNull(message = "date is required")
-    @NextDate
-    LocalDate date,
+    @NotBlank(message = "journy name is required")
+    String name,
 
-    @NotNull(message = "take off time is required")
-    @NextTime
-    LocalTime take_off_at,
+    Long departure_destination,
 
-    @NotNull(message = "arrived at time is required")
-    @NextTime
-    LocalTime arrived_at,
+    Long final_destination,
 
-    @IsValidJournyStatus
-    JournyStatus journyStatus,
-
-    Long road_to
-
+    List<Long> passed_by_cities
 
 
 ) {

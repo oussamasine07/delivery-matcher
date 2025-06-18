@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "journies")
@@ -14,22 +17,24 @@ public class Journy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "journy name", nullable = false)
+    private String name;
 
-    @Column(name = "take_off_at", nullable = false)
-    private LocalTime takeOffAt;
+    @OneToOne
+    @JoinColumn(name = "departure_destination", referencedColumnName = "id")
+    private City departureDestination;
 
-    @Column(name = "arrived_at", nullable = true)
-    private LocalTime arrivedAt;
+    @OneToOne
+    @JoinColumn(name = "final_destination", referencedColumnName = "id")
+    private City finalDestination;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "road_to", referencedColumnName = "id")
-    private City roadTo;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "journy_stats", columnDefinition = "VARCHAR(255) DEFAULT 'STAND_BY'", nullable = false)
-    private JournyStatus journyStatus;
+    @ManyToMany
+    @JoinTable(
+            name = "passed_by_cities",
+            joinColumns = @JoinColumn(name = "journy_id"),
+            inverseJoinColumns = @JoinColumn(name = "city_id")
+    )
+    private List<City> passedByCities;
 
     @ManyToOne
     private Announcement announcement;
@@ -42,45 +47,6 @@ public class Journy {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTakeOffAt() {
-        return takeOffAt;
-    }
-
-    public void setTakeOffAt(LocalTime takeOffAt) {
-        this.takeOffAt = takeOffAt;
-    }
-
-    public LocalTime getArrivedAt() {
-        return arrivedAt;
-    }
-
-    public void setArrivedAt(LocalTime arrivedAt) {
-        this.arrivedAt = arrivedAt;
-    }
-
-    public City getRoadTo() {
-        return roadTo;
-    }
-
-    public void setRoadTo(City roadTo) {
-        this.roadTo = roadTo;
-    }
-
-    public JournyStatus getJournyStatus() {
-        return journyStatus;
-    }
-
-    public void setJournyStatus(JournyStatus journyStatus) {
-        this.journyStatus = journyStatus;
-    }
 
     public Announcement getAnnouncement() {
         return announcement;
@@ -88,6 +54,38 @@ public class Journy {
 
     public void setAnnouncement(Announcement announcement) {
         this.announcement = announcement;
+    }
+
+    public City getDepartureDestination() {
+        return departureDestination;
+    }
+
+    public void setDepartureDestination(City departureDestination) {
+        this.departureDestination = departureDestination;
+    }
+
+    public City getFinalDestination() {
+        return finalDestination;
+    }
+
+    public void setFinalDestination(City finalDestination) {
+        this.finalDestination = finalDestination;
+    }
+
+    public List<City> getPassedByCities() {
+        return passedByCities;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassedByCities(List<City> passedByCities) {
+        this.passedByCities = passedByCities;
     }
 }
 

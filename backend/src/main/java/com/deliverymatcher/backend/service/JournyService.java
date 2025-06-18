@@ -44,10 +44,11 @@ public class JournyService {
         Journy updateJourny = journyRepository.findById( id )
                 .orElseThrow( () -> new NotFoundExeption("you can't update a not found journy") );
 
-        updateJourny.setDate( journy.getDate() );
-        updateJourny.setTakeOffAt( journy.getTakeOffAt() );
-        updateJourny.setArrivedAt( journy.getArrivedAt() );
-        updateJourny.setRoadTo( journy.getRoadTo() );
+        updateJourny.setName(journy.getName());
+        updateJourny.setDepartureDestination(journy.getDepartureDestination());
+        updateJourny.setFinalDestination(journy.getFinalDestination());
+        updateJourny.setPassedByCities(journy.getPassedByCities());
+
 
         return new ResponseEntity(journyRepository.save( updateJourny ), HttpStatus.OK);
 
@@ -58,7 +59,6 @@ public class JournyService {
         Map<String, String> res = new HashMap<>();
 
         res.put("id", journy.getId().toString());
-        res.put("road_to", journy.getRoadTo().getName());
 
         journyRepository.deleteById( id );
         return new ResponseEntity<>(res, HttpStatus.OK);

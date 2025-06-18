@@ -13,6 +13,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/v1/journy")
 public class JournyController {
@@ -43,15 +46,22 @@ public class JournyController {
 
         Journy journy = new Journy();
 
-        journy.setDate( journyDTO.date() );
-        journy.setTakeOffAt( journyDTO.take_off_at() );
-        journy.setArrivedAt( journyDTO.arrived_at() );
-        if (journyDTO.journyStatus() == null ) journy.setJournyStatus(JournyStatus.STAND_BY);
+        journy.setName(journyDTO.name());
 
-        City city = cityRepository.findById(journyDTO.road_to()).orElseThrow();
+        City departureDestination = cityRepository.findCityById(journyDTO.departure_destination());
+        journy.setDepartureDestination( departureDestination );
 
-        journy.setRoadTo( city );
+        City finalDestination = cityRepository.findCityById(journyDTO.final_destination());
+        journy.setFinalDestination( finalDestination );
 
+        List<City> passedByCities = journyDTO.passed_by_cities()
+                .stream()
+                .map(cityId -> {
+                    return cityRepository.findCityById(cityId);
+                })
+                .collect(Collectors.toList());
+
+        journy.setPassedByCities( passedByCities );
 
         return journyService.create(journy);
     }
@@ -61,13 +71,22 @@ public class JournyController {
 
         Journy journy = new Journy();
 
-        journy.setDate( journyDTO.date() );
-        journy.setTakeOffAt( journyDTO.take_off_at() );
-        journy.setArrivedAt( journyDTO.arrived_at() );
+        journy.setName(journyDTO.name());
 
-        City city = cityRepository.findCityById(journyDTO.road_to());
+        City departureDestination = cityRepository.findCityById(journyDTO.departure_destination());
+        journy.setDepartureDestination( departureDestination );
 
-        journy.setRoadTo( city );
+        City finalDestination = cityRepository.findCityById(journyDTO.final_destination());
+        journy.setFinalDestination( finalDestination );
+
+        List<City> passedByCities = journyDTO.passed_by_cities()
+                .stream()
+                .map(cityId -> {
+                    return cityRepository.findCityById(cityId);
+                })
+                .collect(Collectors.toList());
+
+        journy.setPassedByCities( passedByCities );
 
         return journyService.update(journy, id);
 
