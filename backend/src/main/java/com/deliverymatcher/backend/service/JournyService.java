@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JournyService {
@@ -41,6 +43,17 @@ public class JournyService {
 
         return new ResponseEntity(journyRepository.save( updateJourny ), HttpStatus.OK);
 
+    }
+
+    public ResponseEntity<?> delete (Long id) {
+        Journy journy = journyRepository.findById( id ).orElseThrow();
+        Map<String, String> res = new HashMap<>();
+
+        res.put("id", journy.getId().toString());
+        res.put("road_to", journy.getRoadTo().getName());
+
+        journyRepository.deleteById( id );
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 }

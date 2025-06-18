@@ -65,5 +65,10 @@ public class JournyController {
 
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteJourny(@PathVariable Long id) {
+        return journyService.delete( id );
+    }
+
 
 }
