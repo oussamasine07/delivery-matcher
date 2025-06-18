@@ -39,6 +39,9 @@ public class Journy {
     @ManyToOne
     private Announcement announcement;
 
+    @OneToMany(mappedBy = "journy")
+    private List<Travel> travels;
+
     public Long getId() {
         return id;
     }
