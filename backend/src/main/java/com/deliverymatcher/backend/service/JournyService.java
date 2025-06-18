@@ -1,6 +1,7 @@
 package com.deliverymatcher.backend.service;
 
 import com.deliverymatcher.backend.dto.JournyDTO;
+import com.deliverymatcher.backend.exception.NotFoundExeption;
 import com.deliverymatcher.backend.model.Journy;
 import com.deliverymatcher.backend.repository.JournyRepository;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,8 @@ public class JournyService {
     }
 
     public ResponseEntity<?> show (Long id) {
-        Journy journy = journyRepository.findById( id ).orElseThrow();
+        Journy journy = journyRepository.findById( id )
+                .orElseThrow( () -> new NotFoundExeption("journy not found") );
         return new ResponseEntity<>(journy, HttpStatus.OK);
     }
 
@@ -39,7 +41,8 @@ public class JournyService {
 
     public ResponseEntity<?> update (Journy journy, Long id) {
 
-        Journy updateJourny = journyRepository.findById( id ).orElseThrow();
+        Journy updateJourny = journyRepository.findById( id )
+                .orElseThrow( () -> new NotFoundExeption("you can't update a not found journy") );
 
         updateJourny.setDate( journy.getDate() );
         updateJourny.setTakeOffAt( journy.getTakeOffAt() );
@@ -51,7 +54,7 @@ public class JournyService {
     }
 
     public ResponseEntity<?> delete (Long id) {
-        Journy journy = journyRepository.findById( id ).orElseThrow();
+        Journy journy = journyRepository.findById( id ).orElseThrow( () -> new NotFoundExeption("you can't delete a not found journy") );
         Map<String, String> res = new HashMap<>();
 
         res.put("id", journy.getId().toString());
