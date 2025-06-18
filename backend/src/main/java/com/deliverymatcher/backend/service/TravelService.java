@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TravelService {
@@ -36,9 +38,47 @@ public class TravelService {
     public ResponseEntity<?> create (Travel travel) {
 
         Travel newTravel = travelRepository.save(travel);
-
         return new ResponseEntity<>(newTravel, HttpStatus.OK);
 
     }
 
+    public ResponseEntity<?> update (Travel travel, Long id) {
+
+        Travel updatedTravel = travelRepository.findById( id )
+                .orElseThrow(() -> new NotFoundExeption("you can't update a not found travel"));
+
+        updatedTravel.setDate(travel.getDate());
+        updatedTravel.setTakeOff(travel.getTakeOff());
+        updatedTravel.setArrivedAt(travel.getArrivedAt());
+        updatedTravel.setJournyStatus(travel.getJournyStatus());
+
+        if (travel.getJourny() != null ) updatedTravel.setJourny( travel.getJourny() );
+
+        return new ResponseEntity<>(travelRepository.save(updatedTravel), HttpStatus.OK);
+
+    }
+
+    public ResponseEntity<?> delete (Long id) {
+        Travel travel = travelRepository.findById( id )
+                .orElseThrow(() -> new NotFoundExeption("you can't update a not found travel"));
+        Map<String, String> res = new HashMap<>();
+
+        res.put("id", travel.getId().toString());
+
+        travelRepository.deleteById( id );
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

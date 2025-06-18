@@ -58,4 +58,40 @@ public class TravelController {
         return travelService.create(travel);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateTravel ( @Valid @RequestBody TravelDTO travelDTO, @PathVariable Long id ) {
+        Travel travel = new Travel();
+
+        travel.setDate( travelDTO.date() );
+        travel.setTakeOff( travelDTO.take_off() );
+        travel.setArrivedAt( travelDTO.arrived_at() );
+        travel.setJournyStatus(travelDTO.journy_status());
+
+        if (travelDTO.journy_id() != null) {
+            Journy journy = journyRepository.findJournyById(travelDTO.journy_id());
+            travel.setJourny(journy);
+        }
+
+        return travelService.update( travel, id );
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteTravel ( @PathVariable Long id ) {
+        return travelService.delete( id );
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
