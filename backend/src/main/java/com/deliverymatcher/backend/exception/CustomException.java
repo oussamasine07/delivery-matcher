@@ -44,4 +44,15 @@ public class CustomException {
 
     }
 
+    @ExceptionHandler( value = {NotFoundExeption.class})
+    public ResponseEntity<?> handleNotFoundException (
+            NotFoundExeption ex,
+            WebRequest req
+    ) {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>( body, HttpStatus.BAD_REQUEST );
+    }
+
 }
