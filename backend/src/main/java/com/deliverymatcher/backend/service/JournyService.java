@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JournyService {
 
@@ -18,10 +20,16 @@ public class JournyService {
         this.journyRepository = journyRepository;
     }
 
+    public ResponseEntity<?> index () {
+        List<Journy> journies = journyRepository.findAll();
+        return new ResponseEntity<>(journies, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> create (Journy journy) {
         Journy newJourny = journyRepository.save( journy );
         return new ResponseEntity<>(newJourny, HttpStatus.OK);
     }
+
 }
 
 

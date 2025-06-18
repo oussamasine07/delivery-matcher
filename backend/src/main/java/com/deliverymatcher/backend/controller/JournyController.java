@@ -9,10 +9,7 @@ import com.deliverymatcher.backend.repository.CityRepository;
 import com.deliverymatcher.backend.service.JournyService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/journy")
@@ -29,6 +26,11 @@ public class JournyController {
         this.cityRepository = cityRepository;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getJournies () {
+        return journyService.index();
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createJourny (@Valid @RequestBody JournyDTO journyDTO) {
 
@@ -40,13 +42,11 @@ public class JournyController {
 
         City city = cityRepository.findById(journyDTO.road_to()).orElseThrow();
 
-        System.out.println("***********************************************");
-        System.out.println(city.toString());
-        System.out.println("***********************************************");
-
         journy.setRoadTo( city );
 
 
         return journyService.create(journy);
     }
+
+
 }
