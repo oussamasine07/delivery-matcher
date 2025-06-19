@@ -1,0 +1,19 @@
+<div class="bg-gray-100">
+  <div class="min-h-screen flex relative">
+    <!-- Mobile menu button -->
+
+    <!-- Side bar starts -->
+    <app-sidebar></app-sidebar>
+    <!-- Side bar ends -->
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto">
+      <!-- Top Navigation -->
+      <app-navbar></app-navbar>
+
+      <div class="p-6">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
