@@ -1,0 +1,49 @@
+<div class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto bg-white/60 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl p-6">
+
+    <!-- Header Title & Button -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Announcements</h2>
+      <button class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow hover:scale-105 transform transition-all duration-200">
+        <i class="fas fa-plus mr-2"></i>
+        Add Announcement
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white/80 text-gray-800 border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+        <thead>
+        <tr class="bg-gray-100 text-left text-sm uppercase text-gray-500">
+          <th class="px-4 py-3">Name</th>
+          <th class="px-4 py-3">Max Dimensions</th>
+          <th class="px-4 py-3">Goods Type</th>
+          <th class="px-4 py-3">Capacity</th>
+          <th class="px-4 py-3">Journey ID</th>
+          <th class="px-4 py-3">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-gray-200">
+        <!-- Sample Row -->
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="px-4 py-3">Announcement 1</td>
+          <td class="px-4 py-3">20.5</td>
+          <td class="px-4 py-3">Fiber</td>
+          <td class="px-4 py-3">30</td>
+          <td class="px-4 py-3">2</td>
+          <td class="px-4 py-3 space-x-2">
+            <button class="p-2 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition" title="Update">
+              <i class="fas fa-edit text-sm"></i>
+            </button>
+            <button class="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition" title="Delete">
+              <i class="fas fa-trash text-sm"></i>
+            </button>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
