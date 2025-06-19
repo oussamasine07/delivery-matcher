@@ -20,6 +20,8 @@ import {Sender} from '../../../models/interfaces/sender';
 })
 export class RegisterComponent {
 
+  token: string | null | undefined = localStorage.getItem("token") ? localStorage.getItem("token") : null;
+
   router: Router = inject(Router)
 
   authService: AuthService = inject(AuthService);
@@ -54,5 +56,11 @@ export class RegisterComponent {
         this.fieldErrors = e.error
       }
     })
+  }
+
+  ngOnInit() {
+    if ( this.token ) {
+      this.router.navigate(["/app"]);
+    }
   }
 }
