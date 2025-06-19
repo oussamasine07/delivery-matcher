@@ -11,35 +11,29 @@ import java.util.Set;
 @Table(name = "announcements")
 public class Announcement {
 
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-//    @Column(name = "departure_destination")
-//    private String departureDestination;
-//
-//    @Column(name = "final_destination")
-//    private String finalDestination;
-
-    @Column(name = "max_dimentions")
+    @Column(name = "max_dimentions", nullable = false)
     private double maxDimentions;
 
-    @Column(name = "goods_type")
+    @Column(name = "goods_type", nullable = false)
     private String goodsType;
 
-    @Column(name = "capacity")
+    @Column(name = "capacity", nullable = false)
     private double capacity;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "passed_by_cities",
-//            joinColumns = @JoinColumn(name = "announcement_id"),
-//            inverseJoinColumns = @JoinColumn(name = "city_id")
-//    )
-//    private Set<City> passedByCities = new HashSet<>();
 
     @ManyToOne
     private Driver driver;
@@ -66,22 +60,6 @@ public class Announcement {
         this.name = name;
     }
 
-//    public String getDepartureDestination() {
-//        return departureDestination;
-//    }
-//
-//    public void setDepartureDestination(String departureDestination) {
-//        this.departureDestination = departureDestination;
-//    }
-//
-//    public String getFinalDestination() {
-//        return finalDestination;
-//    }
-//
-//    public void setFinalDestination(String finalDestination) {
-//        this.finalDestination = finalDestination;
-//    }
-
     public double getMaxDimentions() {
         return maxDimentions;
     }
@@ -105,14 +83,6 @@ public class Announcement {
     public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
-
-//    public Set<City> getPassedByCities() {
-//        return passedByCities;
-//    }
-//
-//    public void setPassedByCities(Set<City> passedByCities) {
-//        this.passedByCities = passedByCities;
-//    }
 
     public List<Journy> getJournies() {
         return journies;

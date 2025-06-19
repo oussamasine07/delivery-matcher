@@ -1,22 +1,40 @@
 package com.deliverymatcher.backend.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 public record AnnouncementDTO(
 
-        String name,
+    @NotBlank(message = "announcement name is required")
+    String name,
 
-        Long departureDestination,
+    @NotNull(message = "max dimentions is required")
+    double max_dimentions,
 
-        Long finalDestination,
+    @NotBlank(message = "goods type is required")
+    String goods_type,
 
-        double maxDimentions,
+    @NotNull(message = "capacity is required")
+    double capacity,
 
-        String goodsType,
-
-        double capacity,
-
-        List<Long> passed_by_cities
+    Long journy_id
 
 ) {
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
