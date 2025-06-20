@@ -11,13 +11,13 @@ public record AnnouncementDTO(
     String name,
 
     @NotNull(message = "max dimentions is required")
-    double max_dimentions,
+    Double max_dimentions,
 
     @NotBlank(message = "goods type is required")
     String goods_type,
 
     @NotNull(message = "capacity is required")
-    double capacity,
+    Double capacity,
 
     Long journy_id
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {Journy} from '../../../../models/interfaces/journy';
 import {JournyService} from '../../../../services/journy/journy.service';
 import {announcementForm} from '../../../../models/types/annoucementForm';
@@ -12,7 +12,8 @@ import {Announcement} from '../../../../models/interfaces/announcement';
   imports: [
     NgClass,
     NgForOf,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './announcement-create-modal.component.html',
   styleUrl: './announcement-create-modal.component.css'
@@ -26,6 +27,7 @@ export class AnnouncementCreateModalComponent implements OnInit {
   animate = false;
 
   journies: Journy[] = [];
+  fieldErrors: Record<string, string|string[]> = {};
 
   ngOnInit() {
     setTimeout(() => {
@@ -50,6 +52,7 @@ export class AnnouncementCreateModalComponent implements OnInit {
 
   }
 
+  @Output() emitAnnouncement = new EventEmitter();
   announcementObj: announcementForm = {
     name: "",
     max_dimentions: null,
@@ -59,11 +62,14 @@ export class AnnouncementCreateModalComponent implements OnInit {
   }
   onCreateAnnouncementSubmit (form: FormsModule) {
     this.announcementService.createAnnouncement(this.announcementObj).subscribe({
-      next: (res: Announcement) => {
-        console.log(res)
+      next: (announcement: Announcement) => {
+        console.log(announcement)
+        this.emitAnnouncement.emit( announcement );
+        this.onCloseClick()
       },
       error: e => {
-        console.log(e.error);
+        this.fieldErrors = e.error;
+        console.log(this.fieldErrors);
       }
     })
   }

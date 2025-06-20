@@ -39,6 +39,9 @@ export class AnnouncementIndexComponent implements OnInit{
     })
   }
 
+  addNewAnnoucement ( announcement: Announcement) {
+    this.announcements.push(announcement);
+  }
 
 }
 
