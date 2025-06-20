@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnnouncementService {
 
@@ -16,6 +18,11 @@ public class AnnouncementService {
             final AnnouncementRepository announcementRepository
     ) {
         this.announcementRepository = announcementRepository;
+    }
+
+    public ResponseEntity<?> fetchAnnouncementsDriverId (Long id) {
+        List<Announcement> announcements = announcementRepository.findAnnouncementsByDriverId( id );
+        return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
 
     public ResponseEntity<?> create (Announcement announcement) {

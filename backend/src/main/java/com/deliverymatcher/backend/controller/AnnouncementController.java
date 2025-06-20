@@ -29,6 +29,16 @@ public class AnnouncementController {
         this.driverService = driverService;
     }
 
+    @GetMapping("/announcements-by-dirver-id")
+    public ResponseEntity<?> fetchAnnouncementsByDriverId(@RequestHeader("Authorization") String headerToken) {
+        String token = headerToken.substring(7);
+
+        Claims claims = jwtService.extractAllClaims(token);
+        Long driverId = Long.parseLong(claims.get("id").toString());
+
+        return announcementService.fetchAnnouncementsDriverId( driverId );
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createAnnouncement (@Valid @RequestBody AnnouncementDTO announcementDTO, @RequestHeader("Authorization") String headerToken ) {
 
