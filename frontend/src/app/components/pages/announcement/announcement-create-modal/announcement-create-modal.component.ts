@@ -2,12 +2,17 @@ import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {NgClass, NgForOf} from '@angular/common';
 import {Journy} from '../../../../models/interfaces/journy';
 import {JournyService} from '../../../../services/journy/journy.service';
+import {announcementForm} from '../../../../models/types/annoucementForm';
+import {FormsModule} from '@angular/forms';
+import {AnnouncementService} from '../../../../services/announcement/announcement.service';
+import {Announcement} from '../../../../models/interfaces/announcement';
 
 @Component({
   selector: 'app-announcement-create-modal',
   imports: [
     NgClass,
-    NgForOf
+    NgForOf,
+    FormsModule
   ],
   templateUrl: './announcement-create-modal.component.html',
   styleUrl: './announcement-create-modal.component.css'
@@ -15,6 +20,7 @@ import {JournyService} from '../../../../services/journy/journy.service';
 export class AnnouncementCreateModalComponent implements OnInit {
 
   journyService: JournyService = inject(JournyService);
+  announcementService: AnnouncementService = inject(AnnouncementService);
 
   @Output() close = new EventEmitter();
   animate = false;
@@ -42,6 +48,24 @@ export class AnnouncementCreateModalComponent implements OnInit {
       this.close.emit()
     }, 300);
 
+  }
+
+  announcementObj: announcementForm = {
+    name: "",
+    max_dimentions: null,
+    goods_type: "",
+    capacity: null,
+    journy_id: null
+  }
+  onCreateAnnouncementSubmit (form: FormsModule) {
+    this.announcementService.createAnnouncement(this.announcementObj).subscribe({
+      next: (res: Announcement) => {
+        console.log(res)
+      },
+      error: e => {
+        console.log(e.error);
+      }
+    })
   }
 
 }
