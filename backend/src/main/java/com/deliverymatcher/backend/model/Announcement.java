@@ -3,6 +3,7 @@ package com.deliverymatcher.backend.model;
 import jakarta.persistence.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class Announcement {
     private Driver driver;
 
     @OneToMany(mappedBy = "announcement")
-    private List<Journy> journies;
+    private List<Journy> journies = new ArrayList<>();
 
     public Announcement () {}
 

@@ -64,6 +64,10 @@ public class JournyService {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    public Journy getJournyById ( Long id ) {
+        return journyRepository.findJournyById( id );
+    }
+
 }
 
 
