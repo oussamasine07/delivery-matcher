@@ -3,7 +3,9 @@ import {LoginComponent} from './components/pages/login/login.component';
 import {RegisterComponent} from './components/pages/register/register.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {DashboardComponent} from './components/pages/dashboard/dashboard.component';
-import {AnnouncementComponent} from './components/pages/announcement/announcement.component';
+import {
+  AnnouncementIndexComponent
+} from './components/pages/announcement/announcement-index/announcement-index.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +26,7 @@ export const routes: Routes = [
       },
       {
         path: "announcement",
-        component: AnnouncementComponent
+        component: AnnouncementIndexComponent
       }
     ]
   }
