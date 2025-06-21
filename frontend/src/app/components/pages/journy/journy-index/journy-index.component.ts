@@ -4,6 +4,7 @@ import {JournyService} from '../../../../services/journy/journy.service';
 import {NgFor, NgIf} from '@angular/common';
 import {JournyCreateComponent} from '../journy-create/journy-create.component';
 import {JournyUpdateComponent} from '../journy-update/journy-update.component';
+import {JournyDeleteComponent} from '../journy-delete/journy-delete.component';
 
 @Component({
   selector: 'app-journy-index',
@@ -11,7 +12,8 @@ import {JournyUpdateComponent} from '../journy-update/journy-update.component';
     NgFor,
     JournyCreateComponent,
     NgIf,
-    JournyUpdateComponent
+    JournyUpdateComponent,
+    JournyDeleteComponent
   ],
   templateUrl: './journy-index.component.html',
   styleUrl: './journy-index.component.css'
@@ -55,6 +57,20 @@ export class JournyIndexComponent implements OnInit {
   }
   updateJournyOnEdit (j: Journy) {
     this.journies = this.journies.map(journy => j.id == journy.id ? j : journy)
+  }
+
+  @Input() deleteJourny: Journy | null = null;
+  showDeleteModal = false;
+  openDeleteModal (journy: Journy) {
+    this.deleteJourny = journy;
+    this.showDeleteModal = true
+  }
+  closeDeleteModal () {
+    this.showDeleteModal = false;
+  }
+  updateJourniesOnDelete (journy: Journy) {
+    this.journies = this.journies.filter(j => j.id != journy.id )
+    this.closeDeleteModal()
   }
 
 

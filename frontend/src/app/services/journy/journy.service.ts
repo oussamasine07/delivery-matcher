@@ -35,4 +35,12 @@ export class JournyService {
     )
   }
 
+  deleteJourny ( journyId: number | null | undefined) {
+    return this.httpClient.delete(`http://localhost:8080/api/v1/journy/delete/${ journyId }`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => err);
+      })
+    )
+  }
+
 }

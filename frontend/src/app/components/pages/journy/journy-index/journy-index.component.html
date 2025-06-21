@@ -32,7 +32,7 @@
           <button (click)="openUpdateModal(journy)" class="p-2 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition" title="Update">
             <i class="fas fa-edit text-sm"></i>
           </button>
-          <button class="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition" title="Delete">
+          <button (click)="openDeleteModal(journy)" class="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition" title="Delete">
             <i class="fas fa-trash text-sm"></i>
           </button>
         </td>
@@ -45,3 +45,10 @@
 
 <app-journy-create *ngIf="showModal" (close)="closeCreateModal()" (emitCreateJourny)="addNewJourny($event)"></app-journy-create>
 <app-journy-update *ngIf="showUpdateModal" (close)="closeUpdateModal()" [currentJourny]="updateJourny" (emitUpdateJourny)="updateJournyOnEdit($event)"></app-journy-update>
+<app-journy-delete
+  *ngIf="showDeleteModal"
+  (close)="closeDeleteModal()"
+  [currentJourny]="deleteJourny"
+  (confiremDelete)="updateJourniesOnDelete($event)"
+  (cancelDelete)="closeDeleteModal()"
+></app-journy-delete>
