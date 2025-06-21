@@ -26,7 +26,7 @@ export class SidebarComponent {
     {
       name: "Journies",
       icon: "fas fa-route mr-3",
-      url: "/app/journies"
+      url: "/app/journy"
     }
   ]
 }

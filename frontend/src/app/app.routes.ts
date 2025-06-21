@@ -6,6 +6,7 @@ import {DashboardComponent} from './components/pages/dashboard/dashboard.compone
 import {
   AnnouncementIndexComponent
 } from './components/pages/announcement/announcement-index/announcement-index.component';
+import {JournyIndexComponent} from './components/pages/journy/journy-index/journy-index.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
       {
         path: "announcement",
         component: AnnouncementIndexComponent
+      },
+      {
+        path: "journy",
+        component: JournyIndexComponent
       }
     ]
   }
