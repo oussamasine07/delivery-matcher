@@ -29,7 +29,7 @@
           </ul>
         </td>
         <td class="px-4 py-3 space-x-2">
-          <button class="p-2 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition" title="Update">
+          <button (click)="openUpdateModal(journy)" class="p-2 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition" title="Update">
             <i class="fas fa-edit text-sm"></i>
           </button>
           <button class="p-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition" title="Delete">
@@ -44,3 +44,4 @@
 </div>
 
 <app-journy-create *ngIf="showModal" (close)="closeCreateModal()" (emitCreateJourny)="addNewJourny($event)"></app-journy-create>
+<app-journy-update *ngIf="showUpdateModal" (close)="closeUpdateModal()" [currentJourny]="updateJourny" (emitUpdateJourny)="updateJournyOnEdit($event)"></app-journy-update>

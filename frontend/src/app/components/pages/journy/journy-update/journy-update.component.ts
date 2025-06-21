@@ -1,27 +1,36 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
-import {announcementForm} from '../../../../models/types/annoucementForm';
-import Choices from 'choices.js';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {City} from '../../../../models/interfaces/city';
+import Choices from 'choices.js';
 import {CityService} from '../../../../services/city/city.service';
 import {JournyService} from '../../../../services/journy/journy.service';
 import {Journy} from '../../../../models/interfaces/journy';
+import {journyForm} from '../../../../models/types/journyForm';
 
 @Component({
-  selector: 'app-journy-create',
+  selector: 'app-journy-update',
   imports: [
     FormsModule,
+    NgForOf,
     NgIf,
     ReactiveFormsModule,
-    NgClass,
-    NgForOf
+    NgClass
   ],
-  templateUrl: './journy-create.component.html',
-  styleUrl: './journy-create.component.css'
+  templateUrl: './journy-update.component.html',
+  styleUrl: './journy-update.component.css'
 })
-export class JournyCreateComponent implements OnInit, AfterViewInit {
-
+export class JournyUpdateComponent implements OnInit, AfterViewInit{
   cityService: CityService = inject(CityService);
   journyService: JournyService = inject(JournyService);
 
@@ -56,6 +65,14 @@ export class JournyCreateComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.animate = true;
     }, 10)
+
+
+    this.journyObj = {
+      name: this.currentJourny?.name || "",
+      departure_destination: this.currentJourny?.departureDestination?.id || null,
+      final_destination: this.currentJourny?.finalDestination?.id || null,
+      passed_by_cities: null
+    }
   }
 
   animate = false;
@@ -68,47 +85,30 @@ export class JournyCreateComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.close.emit()
     }, 300);
-
   }
 
-  @Output() emitCreateJourny = new EventEmitter();
-  journyObj = {
+  journy: Journy | null = null;
+
+  @Input() currentJourny: Journy | null = null;
+  @Output() emitUpdateJourny = new EventEmitter();
+
+  journyObj: journyForm = {
     name: "",
     departure_destination: null,
     final_destination: null,
     passed_by_cities: null
   }
-  onCreateJournySubmit (event: FormsModule) {
-    this.journyService.createJourny(this.journyObj).subscribe({
+  onUpdateJournySubmit (event: FormsModule) {
+    console.log(this.journyObj);
+    this.journyService.updateJourny(this.journyObj, this.currentJourny?.id).subscribe({
+
       next: (j: Journy) => {
-        this.emitCreateJourny.emit(j);
+        this.emitUpdateJourny.emit(j);
         this.onCloseClick();
       },
       error: e => {
         this.fieldErrors = e.error;
       }
     })
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

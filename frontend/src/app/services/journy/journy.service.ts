@@ -27,4 +27,12 @@ export class JournyService {
     )
   }
 
+  updateJourny ( body: journyForm, journyId: number | null | undefined ): Observable<Journy> {
+    return this.httpClient.put<Journy>(`http://localhost:8080/api/v1/journy/update/${ journyId }`, body).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => err);
+      })
+    )
+  }
+
 }

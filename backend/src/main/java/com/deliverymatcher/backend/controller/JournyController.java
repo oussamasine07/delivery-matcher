@@ -79,14 +79,16 @@ public class JournyController {
         City finalDestination = cityRepository.findCityById(journyDTO.final_destination());
         journy.setFinalDestination( finalDestination );
 
-        List<City> passedByCities = journyDTO.passed_by_cities()
-                .stream()
-                .map(cityId -> {
-                    return cityRepository.findCityById(cityId);
-                })
-                .collect(Collectors.toList());
+        if ( journyDTO.passed_by_cities() != null ) {
+            List<City> passedByCities = journyDTO.passed_by_cities()
+                    .stream()
+                    .map(cityId -> {
+                        return cityRepository.findCityById(cityId);
+                    })
+                    .collect(Collectors.toList());
 
-        journy.setPassedByCities( passedByCities );
+            journy.setPassedByCities( passedByCities );
+        }
 
         return journyService.update(journy, id);
 

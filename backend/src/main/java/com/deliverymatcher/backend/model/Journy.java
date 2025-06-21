@@ -20,11 +20,11 @@ public class Journy {
     @Column(name = "journy name", nullable = false)
     private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "departure_destination", referencedColumnName = "id")
     private City departureDestination;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "final_destination", referencedColumnName = "id")
     private City finalDestination;
 
@@ -33,6 +33,7 @@ public class Journy {
             name = "passed_by_cities",
             joinColumns = @JoinColumn(name = "journy_id"),
             inverseJoinColumns = @JoinColumn(name = "city_id")
+
     )
     private List<City> passedByCities;
 
