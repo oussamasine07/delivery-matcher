@@ -38,4 +38,12 @@ export class AnnouncementService {
     )
   }
 
+  deleteAnnouncement ( announcementId: number | null | undefined): Observable<any> {
+    return this.httpClient.delete(`http://localhost:8080/api/v1/announcement/delete/${announcementId}`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => err)
+      })
+    )
+  }
+
 }

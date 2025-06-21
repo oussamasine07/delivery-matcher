@@ -6,8 +6,10 @@ import com.deliverymatcher.backend.exception.NotFoundExeption;
 import com.deliverymatcher.backend.mapper.AnnouncementMapper;
 import com.deliverymatcher.backend.mapper.JournyMapper;
 import com.deliverymatcher.backend.model.Announcement;
+import com.deliverymatcher.backend.model.Journy;
 import com.deliverymatcher.backend.model.Travel;
 import com.deliverymatcher.backend.repository.AnnouncementRepository;
+import com.deliverymatcher.backend.repository.JournyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +25,18 @@ import java.util.stream.Collectors;
 public class AnnouncementService {
 
     private final AnnouncementRepository announcementRepository;
+    private final JournyRepository journyRepository;
     private final JournyMapper journyMapper;
     private final AnnouncementMapper announcementMapper;
 
     public AnnouncementService (
             final AnnouncementRepository announcementRepository,
+            final JournyRepository journyRepository,
             final JournyMapper journyMapper,
             final AnnouncementMapper announcementMapper
     ) {
         this.announcementRepository = announcementRepository;
+        this.journyRepository = journyRepository;
         this.journyMapper = journyMapper;
         this.announcementMapper = announcementMapper;
     }
@@ -60,13 +65,33 @@ public class AnnouncementService {
             updatedAnnouncement.setMaxDimentions( announcement.getMaxDimentions() );
             updatedAnnouncement.setGoodsType( announcement.getGoodsType() );
             updatedAnnouncement.setCapacity( announcement.getCapacity() );
-            updatedAnnouncement.setJournies( announcement.getJournies() );
+            updatedAnnouncement.setJourny( announcement.getJourny() );
 
             return new ResponseEntity<>(announcementRepository.save(updatedAnnouncement), HttpStatus.OK);
         }
 
         Map<String, String> error = new HashMap<>();
         error.put("message", "Unauthorized action");
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> delete ( Long announcementId, Long driverId ) {
+        Announcement deletedAnnouncement = announcementRepository.findById(announcementId)
+                .orElseThrow(() -> new NotFoundExeption("you can't delete unfound announcement"));
+
+        if (deletedAnnouncement.getDriver().getId() == driverId) {
+
+            announcementRepository.deleteById( announcementId );
+            Map<String, Object> deleted = new HashMap<>();
+            deleted.put("success", deletedAnnouncement.getName() + " has been deleted");
+            deleted.put("announcement", deletedAnnouncement);
+
+            return new ResponseEntity<>(deleted, HttpStatus.OK);
+
+        }
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Unauthorized action");
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }

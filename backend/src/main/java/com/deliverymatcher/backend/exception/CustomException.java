@@ -50,7 +50,7 @@ public class CustomException {
             WebRequest req
     ) {
         Map<String, String> body = new HashMap<>();
-        body.put("message", ex.getMessage());
+        body.put("error", ex.getMessage());
 
         return new ResponseEntity<>( body, HttpStatus.BAD_REQUEST );
     }

@@ -64,11 +64,9 @@ public class AnnouncementController {
         Driver driver = driverService.findById( driverId );
         announcement.setDriver( driver );
 
-        if (announcementDTO.journy_id() != null) {
+        if (announcementDTO.journy_id() != null ) {
             Journy journy = journyService.getJournyById( announcementDTO.journy_id() );
-            announcement.getJournies().add( journy );
-
-            journy.setAnnouncement( announcement );
+            announcement.setJourny( journy );
         }
 
         return announcementService.create( announcement );
@@ -95,15 +93,25 @@ public class AnnouncementController {
         Driver driver = driverService.findById( driverId );
         announcement.setDriver( driver );
 
-        if (announcementDTO.journy_id() != null) {
-            Journy journy = journyService.getJournyById( announcementDTO.journy_id() );
-            announcement.getJournies()
-                    .stream()
-                    .map(j -> j.getId() == journy.getId() ? journy : j)
-                    .collect(Collectors.toList());
-        }
+//        if (announcementDTO.journy_id() != null) {
+//            Journy journy = journyService.getJournyById( announcementDTO.journy_id() );
+//            announcement.getJournies()
+//                    .stream()
+//                    .map(j -> j.getId() == journy.getId() ? journy : j)
+//                    .collect(Collectors.toList());
+//        }
 
         return announcementService.update( announcement, id, driverId );
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteAnnouncement (@PathVariable Long id, @RequestHeader("Authorization") String headerToken) {
+        // get authenticated driver
+        String token = headerToken.substring(7);
+        Claims claims = jwtService.extractAllClaims(token);
+        Long driverId = Long.parseLong(claims.get("id").toString());
+
+        return  announcementService.delete( id, driverId);
     }
 
 }

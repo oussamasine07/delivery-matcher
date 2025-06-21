@@ -4,6 +4,7 @@ import {NgFor, NgIf} from '@angular/common';
 import {AnnouncementService} from '../../../../services/announcement/announcement.service';
 import {Announcement} from '../../../../models/interfaces/announcement';
 import {AnnouncementUpdateComponent} from '../announcement-update/announcement-update.component';
+import {AnnouncementDeleteComponent} from '../announcement-delete/announcement-delete.component';
 
 @Component({
   selector: 'app-announcement-index',
@@ -11,7 +12,8 @@ import {AnnouncementUpdateComponent} from '../announcement-update/announcement-u
     AnnouncementCreateModalComponent,
     NgIf,
     NgFor,
-    AnnouncementUpdateComponent
+    AnnouncementUpdateComponent,
+    AnnouncementDeleteComponent
   ],
   templateUrl: './announcement-index.component.html',
   styleUrl: './announcement-index.component.css'
@@ -31,15 +33,25 @@ export class AnnouncementIndexComponent implements OnInit{
   showUpdateModal = false;
   openUpdateModal (announcement: Announcement) {
     this.showUpdateModal = true;
-    this.updateAnnouncement = announcement
+    this.announcment = announcement
   }
   closeUpdateModal () {
     this.showUpdateModal = false;
   }
 
+  showDeleteModal = false
+  openDeleteModal ( announcement: Announcement | null  ) {
+    this.showDeleteModal = true;
+    this.announcment = announcement
+  }
+  closeDeleteModal () {
+    this.showDeleteModal = false;
+    this.announcment = null;
+  }
+
 
   announcements: Announcement[] = [];
-  updateAnnouncement: Announcement | null = null;
+  announcment: Announcement | null = null;
 
   ngOnInit() {
     this.announcementService.getAnnouncementsByAuthenticatedDriver().subscribe({
@@ -58,6 +70,12 @@ export class AnnouncementIndexComponent implements OnInit{
 
   updatedAnnouncment ( announcement: Announcement) {
     this.announcements = this.announcements.map(ann => ann.id == announcement.id ? announcement : ann)
+  }
+
+  confirmDeleteMessage ( res : any) {
+    const ann = res.announcement;
+    this.announcements = this.announcements.filter(announcement => announcement.id != ann.id && announcement)
+    this.closeDeleteModal()
   }
 
 }
