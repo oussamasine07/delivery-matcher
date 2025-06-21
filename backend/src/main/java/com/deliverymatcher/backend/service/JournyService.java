@@ -1,7 +1,9 @@
 package com.deliverymatcher.backend.service;
 
 import com.deliverymatcher.backend.dto.JournyDTO;
+import com.deliverymatcher.backend.dto.MappedJournyDTO;
 import com.deliverymatcher.backend.exception.NotFoundExeption;
+import com.deliverymatcher.backend.mapper.JournyMapper;
 import com.deliverymatcher.backend.model.Journy;
 import com.deliverymatcher.backend.repository.JournyRepository;
 import org.springframework.http.HttpStatus;
@@ -11,20 +13,27 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class JournyService {
 
     private final JournyRepository journyRepository;
+    private final JournyMapper journyMapper;
 
     public JournyService (
-            final JournyRepository journyRepository
+            final JournyRepository journyRepository,
+            final JournyMapper journyMapper
     ) {
         this.journyRepository = journyRepository;
+        this.journyMapper = journyMapper;
     }
 
     public ResponseEntity<?> index () {
-        List<Journy> journies = journyRepository.findAll();
+        List<MappedJournyDTO> journies = journyRepository.findAll()
+                .stream()
+                .map(this.journyMapper::toDTO)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(journies, HttpStatus.OK);
     }
 
@@ -62,6 +71,10 @@ public class JournyService {
 
         journyRepository.deleteById( id );
         return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    public Journy getJournyById ( Long id ) {
+        return journyRepository.findJournyById( id );
     }
 
 }

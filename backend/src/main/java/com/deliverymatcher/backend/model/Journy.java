@@ -36,11 +36,11 @@ public class Journy {
     )
     private List<City> passedByCities;
 
-    @ManyToOne
-    private Announcement announcement;
-
     @OneToMany(mappedBy = "journy")
     private List<Travel> travels;
+
+    @OneToMany(mappedBy = "journy")
+    private List<Announcement> announcements;
 
     public Long getId() {
         return id;
@@ -50,14 +50,6 @@ public class Journy {
         this.id = id;
     }
 
-
-    public Announcement getAnnouncement() {
-        return announcement;
-    }
-
-    public void setAnnouncement(Announcement announcement) {
-        this.announcement = announcement;
-    }
 
     public City getDepartureDestination() {
         return departureDestination;

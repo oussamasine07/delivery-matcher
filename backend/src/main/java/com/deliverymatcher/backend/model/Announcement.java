@@ -3,6 +3,7 @@ package com.deliverymatcher.backend.model;
 import jakarta.persistence.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,14 +11,6 @@ import java.util.Set;
 @Entity
 @Table(name = "announcements")
 public class Announcement {
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +31,8 @@ public class Announcement {
     @ManyToOne
     private Driver driver;
 
-    @OneToMany(mappedBy = "announcement")
-    private List<Journy> journies;
+    @ManyToOne
+    private Journy journy;
 
     public Announcement () {}
 
@@ -84,12 +77,20 @@ public class Announcement {
         this.capacity = capacity;
     }
 
-    public List<Journy> getJournies() {
-        return journies;
+    public Journy getJourny() {
+        return journy;
     }
 
-    public void setJournies(List<Journy> journies) {
-        this.journies = journies;
+    public void setJourny(Journy journy) {
+        this.journy = journy;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }
 

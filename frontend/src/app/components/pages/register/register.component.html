@@ -1,0 +1,120 @@
+<div class="bg-gradient-to-br from-indigo-600 to-indigo-700 min-h-screen flex items-center justify-center p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]">
+
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 w-full max-w-md shadow-2xl border border-white/20">
+    <div class="text-center mb-4">
+      <div class="bg-white/20 w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center">
+        <!--        <i class="fas fa-headset text-4xl text-white"></i>-->
+        <i class="fas fa-truck text-4xl text-white"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-white mb-2">Delivery Matcher</h1>
+      <p class="text-gray-200">Register your account</p>
+    </div>
+    <form #formRegister (ngSubmit)="onRegisterSubmit(formRegister)">
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['first_name'] != null ? 'fas fa-user text-red-300' : 'fas fa-user text-gray-300'"></i>
+        </div>
+        <input type="email" required
+               [ngClass]="fieldErrors['first_name'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+               placeholder="First name"
+               name="first_name"
+               [(ngModel)]="registerObj.first_name"
+        >
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['first_name']">{{ fieldErrors['first_name'] }}</p>
+      </div>
+
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['last_name'] != null ? 'fas fa-user text-red-300' : 'fas fa-user text-gray-300'"></i>
+        </div>
+        <input type="email" required
+               [ngClass]="fieldErrors['last_name'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+               placeholder="Last name"
+               name="last_name"
+               [(ngModel)]="registerObj.last_name"
+        >
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['last_name']">{{ fieldErrors['last_name'] }}</p>
+      </div>
+
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['email'] != null ? 'fas fa-envelope text-red-300' : 'fas fa-envelope text-gray-300'"></i>
+        </div>
+        <input type="email" required
+               [ngClass]="fieldErrors['email'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+               placeholder="Email address"
+               name="email"
+               [(ngModel)]="registerObj.email"
+        >
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['email']">{{ fieldErrors['email'] }}</p>
+      </div>
+
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['password'] != null ? 'fas fa-lock text-red-300' : 'fas fa-lock text-gray-300'"></i>
+        </div>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="registerObj.password"
+          required
+          [ngClass]="fieldErrors['password'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+          placeholder="Password"
+        >
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['password']">{{ fieldErrors['password'] }}</p>
+      </div>
+
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['confirmPassword'] != null ? 'fas fa-lock text-red-300' : 'fas fa-lock text-gray-300'"></i>
+        </div>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="registerObj.confirmPassword"
+          required
+          [ngClass]="fieldErrors['confirmPassword'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+          placeholder="Confirm password"
+        >
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['confirmPassword']">{{ fieldErrors['confirmPassword'] }}</p>
+      </div>
+
+      <!-- New Select Input -->
+      <div class="relative mb-2">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <i [ngClass]="fieldErrors['type'] != null ? 'fas fa-id-badge text-red-300' : 'fas fa-id-badge text-gray-300'"></i>
+        </div>
+        <select
+          required
+          name="type"
+          [(ngModel)]="registerObj.type"
+          class="block w-full appearance-none pl-10 pr-8 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+          [ngClass]="fieldErrors['type'] != null ? 'block w-full appearance-none pl-10 pr-8 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full appearance-none pl-10 pr-8 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
+        >
+          <option value="" disabled selected>Select a role</option>
+          <option value="driver" class="text-black">Driver</option>
+          <option value="sender" class="text-black">Sender</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 pr-3 flex items-center text-gray-300">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="mt-1 text-sm text-red-300" *ngIf="fieldErrors['type']">{{ fieldErrors['type'] }}</p>
+      </div>
+
+      <!--      <div class="flex items-center justify-between text-sm">-->
+      <!--        <div class="flex items-center">-->
+      <!--          <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-400 focus:ring-purple-400 bg-white/10">-->
+      <!--          <label class="ml-2 text-gray-200">Remember me</label>-->
+      <!--        </div>-->
+      <!--        <a href="#" class="text-indigo-300 hover:text-white transition-colors">Forgot password?</a>-->
+      <!--      </div>-->
+      <button type="submit" class="w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 rounded-xl text-white font-semibold shadow-[0_8px_30px_rgb(59,130,246,0.5)] transform hover:scale-[1.03] hover:shadow-[0_8px_35px_rgb(59,130,246,0.6)] transition-all duration-200 border border-blue-400/30">
+        <div class="flex items-center justify-center">
+          <i class="fas fa-sign-in-alt mr-2"></i>
+          Sign in
+        </div>
+      </button>
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+
+<div class="bg-gray-100 h-screen overflow-hidden">
+  <div class="flex h-full">
+
+    <!-- Sidebar stays fixed -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col h-full">
+
+      <!-- Navbar stays fixed inside main -->
+      <app-navbar class="shrink-0"></app-navbar>
+
+      <!-- Scrollable content area -->
+      <div class="flex-1 overflow-y-auto p-6">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </div>
+</div>
+
