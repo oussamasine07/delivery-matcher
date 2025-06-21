@@ -2,6 +2,7 @@ package com.deliverymatcher.backend.service;
 
 import com.deliverymatcher.backend.dto.MappedAnnouncmentDTO;
 import com.deliverymatcher.backend.dto.MappedJournyDTO;
+import com.deliverymatcher.backend.exception.NotFoundExeption;
 import com.deliverymatcher.backend.mapper.AnnouncementMapper;
 import com.deliverymatcher.backend.mapper.JournyMapper;
 import com.deliverymatcher.backend.model.Announcement;
@@ -12,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -46,6 +49,26 @@ public class AnnouncementService {
         Announcement newAnnouncement = announcementRepository.save(announcement);
 
         return new ResponseEntity<>(newAnnouncement, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> update (Announcement announcement, Long id, Long driverId) {
+        Announcement updatedAnnouncement = announcementRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExeption("you can't update unfound announcement"));
+
+        if (updatedAnnouncement.getDriver().getId() == driverId) {
+            updatedAnnouncement.setName( announcement.getName() );
+            updatedAnnouncement.setMaxDimentions( announcement.getMaxDimentions() );
+            updatedAnnouncement.setGoodsType( announcement.getGoodsType() );
+            updatedAnnouncement.setCapacity( announcement.getCapacity() );
+            updatedAnnouncement.setJournies( announcement.getJournies() );
+
+            return new ResponseEntity<>(announcementRepository.save(updatedAnnouncement), HttpStatus.OK);
+        }
+
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "Unauthorized action");
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }

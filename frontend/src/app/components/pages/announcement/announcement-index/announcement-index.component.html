@@ -55,4 +55,4 @@
 </div>
 
 <app-announcement-create-modal *ngIf="showModal" (close)="closeModal()" (emitAnnouncement)="addNewAnnoucement($event)"></app-announcement-create-modal>
-<app-announcement-update *ngIf="showUpdateModal" (close)="closeUpdateModal()" [currentAnnoucement]="updateAnnouncement"></app-announcement-update>
+<app-announcement-update *ngIf="showUpdateModal" (close)="closeUpdateModal()" [currentAnnoucement]="updateAnnouncement" (emitUpdatedAnnouncement)="updatedAnnouncment($event)"></app-announcement-update>

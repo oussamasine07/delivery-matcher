@@ -63,6 +63,7 @@ export class AnnouncementUpdateComponent implements OnInit {
     }
   }
 
+  @Output() emitUpdatedAnnouncement = new EventEmitter();
   announcementObj: announcementForm = {
     name: "",
     max_dimentions: null,
@@ -71,6 +72,32 @@ export class AnnouncementUpdateComponent implements OnInit {
     journy_id: null
   }
   onUpdateAnnouncementSubmit(form: FormsModule) {
-
+    console.log(this.announcementObj);
+    this.annoucementService.updateAnnouncement(this.announcementObj, this.currentAnnoucement?.id).subscribe({
+      next: (ann: Announcement) => {
+        this.emitUpdatedAnnouncement.emit(ann);
+        this.announcementObj = {
+          name: "",
+          max_dimentions: null,
+          goods_type: "",
+          capacity: null,
+          journy_id: null
+        }
+        this.onCloseClick();
+      },
+      error: (e) => {
+        console.log(e.error)
+      }
+    })
   }
 }
+
+
+
+
+
+
+
+
+
+

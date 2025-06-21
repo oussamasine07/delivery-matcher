@@ -13,6 +13,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/v1/announcement")
 public class AnnouncementController {
@@ -70,6 +72,38 @@ public class AnnouncementController {
         }
 
         return announcementService.create( announcement );
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateAnnouncement (
+            @Valid @RequestBody AnnouncementDTO announcementDTO,
+            @RequestHeader("Authorization") String headerToken,
+            @PathVariable Long id
+    ) {
+        // get authenticated driver
+        String token = headerToken.substring(7);
+        Claims claims = jwtService.extractAllClaims(token);
+        Long driverId = Long.parseLong(claims.get("id").toString());
+
+        Announcement announcement = new Announcement();
+
+        announcement.setName( announcementDTO.name() );
+        announcement.setMaxDimentions( announcementDTO.max_dimentions() );
+        announcement.setCapacity( announcementDTO.capacity() );
+        announcement.setGoodsType( announcementDTO.goods_type() );
+
+        Driver driver = driverService.findById( driverId );
+        announcement.setDriver( driver );
+
+        if (announcementDTO.journy_id() != null) {
+            Journy journy = journyService.getJournyById( announcementDTO.journy_id() );
+            announcement.getJournies()
+                    .stream()
+                    .map(j -> j.getId() == journy.getId() ? journy : j)
+                    .collect(Collectors.toList());
+        }
+
+        return announcementService.update( announcement, id, driverId );
     }
 
 }

@@ -56,6 +56,10 @@ export class AnnouncementIndexComponent implements OnInit{
     this.announcements.push(announcement);
   }
 
+  updatedAnnouncment ( announcement: Announcement) {
+    this.announcements = this.announcements.map(ann => ann.id == announcement.id ? announcement : ann)
+  }
+
 }
 
 

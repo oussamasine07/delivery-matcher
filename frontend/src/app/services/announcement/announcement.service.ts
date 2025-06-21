@@ -29,4 +29,13 @@ export class AnnouncementService {
     )
   }
 
+  updateAnnouncement (body: announcementForm, annoucementId: number | null | undefined): Observable<Announcement> {
+
+    return this.httpClient.put<Announcement>(`http://localhost:8080/api/v1/announcement/update/${annoucementId}`, body).pipe(
+      catchError((err: HttpErrorResponse)=> {
+        return throwError(() => err);
+      })
+    )
+  }
+
 }
