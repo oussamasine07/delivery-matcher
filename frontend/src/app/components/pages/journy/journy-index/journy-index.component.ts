@@ -38,4 +38,8 @@ export class JournyIndexComponent implements OnInit {
     this.showModal = false
   }
 
+  addNewJourny (journy: Journy) {
+    this.journies.push( journy );
+  }
+
 }

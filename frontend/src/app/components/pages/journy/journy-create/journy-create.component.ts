@@ -1,8 +1,12 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {announcementForm} from '../../../../models/types/annoucementForm';
 import Choices from 'choices.js';
+import {City} from '../../../../models/interfaces/city';
+import {CityService} from '../../../../services/city/city.service';
+import {JournyService} from '../../../../services/journy/journy.service';
+import {Journy} from '../../../../models/interfaces/journy';
 
 @Component({
   selector: 'app-journy-create',
@@ -18,15 +22,35 @@ import Choices from 'choices.js';
 })
 export class JournyCreateComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('citiesSelect') citiesSelect!: ElementRef;
-  ngAfterViewInit(): void {
-    new Choices(this.citiesSelect.nativeElement, {
-      removeItemButton: true,
-      placeholderValue: 'Select crossed cities',
-      shouldSort: false
-    });
+  cityService: CityService = inject(CityService);
+  journyService: JournyService = inject(JournyService);
+
+
+  availableCities: City[] = [];
+  //@ViewChild('citiesSelect') citiesSelect!: ElementRef;
+  private choicesInstance: Choices | null = null;
+
+  @ViewChild('citiesSelect') set citiesSelectSetter(el: ElementRef) {
+    if (el && this.availableCities.length > 0 && !this.choicesInstance) {
+      this.choicesInstance = new Choices(el.nativeElement, {
+        removeItemButton: true,
+        placeholderValue: 'Select crossed cities',
+        shouldSort: false,
+      });
+    }
   }
-  availableCities = ['Rabat', 'Kenitra', 'Fes', 'Oujda', 'Chefchaouen'];
+
+  ngAfterViewInit(): void {
+    this.cityService.getCities().subscribe({
+      next: (cities: City[]) => {
+        this.availableCities = cities;
+        console.log(this.availableCities)
+      },
+      error: e => {
+        console.log(e)
+      }
+    })
+  }
 
 
   ngOnInit() {
@@ -48,11 +72,44 @@ export class JournyCreateComponent implements OnInit, AfterViewInit {
 
   }
 
-  announcementObj: announcementForm = {
+  @Output() emitCreateJourny = new EventEmitter();
+  journyObj = {
     name: "",
-    max_dimentions: null,
-    goods_type: "",
-    capacity: null,
-    journy_id: null
+    departure_destination: null,
+    final_destination: null,
+    passed_by_cities: null
+  }
+  onCreateJournySubmit (event: FormsModule) {
+    this.journyService.createJourny(this.journyObj).subscribe({
+      next: (j: Journy) => {
+        this.emitCreateJourny.emit(j);
+        this.onCloseClick();
+      },
+      error: e => {
+        this.fieldErrors = e.error;
+      }
+    })
+
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

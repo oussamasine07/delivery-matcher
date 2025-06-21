@@ -43,4 +43,4 @@
   </div>
 </div>
 
-<app-journy-create *ngIf="showModal" (close)="closeCreateModal()"></app-journy-create>
+<app-journy-create *ngIf="showModal" (close)="closeCreateModal()" (emitCreateJourny)="addNewJourny($event)"></app-journy-create>
