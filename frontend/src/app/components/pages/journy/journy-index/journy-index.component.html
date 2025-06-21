@@ -1,7 +1,7 @@
 <div class="bg-white rounded-2xl shadow-md p-6">
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-xl font-semibold text-gray-800">Journies</h2>
-    <button class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow hover:scale-105 transform transition-all duration-200">
+    <button (click)="openCreateModal()" class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl shadow hover:scale-105 transform transition-all duration-200">
       <i class="fas fa-plus mr-2"></i>
       Add Journy
     </button>
@@ -42,3 +42,5 @@
     </table>
   </div>
 </div>
+
+<app-journy-create *ngIf="showModal" (close)="closeCreateModal()"></app-journy-create>
