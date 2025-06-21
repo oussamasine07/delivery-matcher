@@ -13,6 +13,14 @@ export class AnnouncementService {
 
   httpClient: HttpClient = inject(HttpClient)
 
+  getAllAnnouncements (): Observable<Announcement[]> {
+    return this.httpClient.get<Announcement[]>("http://localhost:8080/api/v1/announcement").pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => err);
+      })
+    )
+  }
+
   getAnnouncementsByAuthenticatedDriver (): Observable<Announcement[]> {
     return this.httpClient.get<Announcement[]>("http://localhost:8080/api/v1/announcement/announcements-by-dirver-id").pipe(
       catchError((err: HttpErrorResponse)=> {
