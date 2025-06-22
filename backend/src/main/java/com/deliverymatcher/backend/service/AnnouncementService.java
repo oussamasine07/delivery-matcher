@@ -41,6 +41,14 @@ public class AnnouncementService {
         this.announcementMapper = announcementMapper;
     }
 
+    public ResponseEntity<?> getAnnouncements () {
+        List<MappedAnnouncmentDTO> announcements = announcementRepository.findAllWithApplications()
+                .stream()
+                .map(this.announcementMapper::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(announcements, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> fetchAnnouncementsDriverId (Long id) {
         List<MappedAnnouncmentDTO> announcements = announcementRepository.findAnnouncementsByDriverId( id )
                 .stream()

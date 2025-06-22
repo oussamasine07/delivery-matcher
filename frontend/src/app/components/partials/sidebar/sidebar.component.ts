@@ -24,6 +24,11 @@ export class SidebarComponent {
       url: "/app/announcement"
     },
     {
+      name: "Announcements Sender",
+      icon: "fas fa-bullhorn mr-3",
+      url: "/app/announcement-sender"
+    },
+    {
       name: "Journies",
       icon: "fas fa-route mr-3",
       url: "/app/journy"

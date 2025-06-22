@@ -36,6 +36,11 @@ public class AnnouncementController {
         this.journyService = journyService;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllAnnouncements () {
+        return announcementService.getAnnouncements();
+    }
+
     @GetMapping("/announcements-by-dirver-id")
     public ResponseEntity<?> fetchAnnouncementsByDriverId(@RequestHeader("Authorization") String headerToken) {
         String token = headerToken.substring(7);
@@ -92,14 +97,6 @@ public class AnnouncementController {
 
         Driver driver = driverService.findById( driverId );
         announcement.setDriver( driver );
-
-//        if (announcementDTO.journy_id() != null) {
-//            Journy journy = journyService.getJournyById( announcementDTO.journy_id() );
-//            announcement.getJournies()
-//                    .stream()
-//                    .map(j -> j.getId() == journy.getId() ? journy : j)
-//                    .collect(Collectors.toList());
-//        }
 
         return announcementService.update( announcement, id, driverId );
     }

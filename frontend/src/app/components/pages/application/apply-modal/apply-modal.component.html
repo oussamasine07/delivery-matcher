@@ -1,0 +1,113 @@
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">
+  <!-- Modal Card -->
+  <div class="bg-white w-full max-w-2xl p-6 rounded-2xl shadow-xl transform transition-all duration-300 ease-out"
+       [ngClass]="{
+      'opacity-100 translate-y-0': animate,
+      'opacity-0 -translate-y-5': !animate
+    }">
+
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Apply to Announcement {{ currentAnnouncement?.name }}</h2>
+      <button (click)="onCloseClick()" class="text-gray-500 hover:text-red-500 text-lg">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form #applicationForm (ngSubmit)="onApplyForAnnouncementSubmit( applicationForm )">
+      <!-- Date Section -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+        <input
+          type="date"
+          class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2"
+          [ngClass]="{
+              'border-red-500 placeholder-red-300 focus:ring-red-400': fieldErrors['application_date'],
+              'border-gray-300 focus:ring-indigo-400': !fieldErrors['application_date']
+            }"
+          placeholder="Select date"
+          name="application_date"
+          [(ngModel)]="applicationObj.application_date"
+        />
+        <p *ngIf="fieldErrors['application_date']" class="mt-1 text-sm text-red-500">{{ fieldErrors['application_date'] }}</p>
+      </div>
+
+      <!-- Package Section -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Package</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Width (cm)</label>
+            <input
+              type="number"
+              class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2"
+              [ngClass]="{
+              'border-red-500 placeholder-red-300 focus:ring-red-400': fieldErrors['width'],
+              'border-gray-300 focus:ring-indigo-400': !fieldErrors['width']
+            }"
+              placeholder="Select date"
+              name="width"
+              [(ngModel)]="applicationObj.width"
+            />
+            <p *ngIf="fieldErrors['width']" class="mt-1 text-sm text-red-500">{{ fieldErrors['width'] }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
+            <input
+              type="number"
+              class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2"
+              [ngClass]="{
+              'border-red-500 placeholder-red-300 focus:ring-red-400': fieldErrors['hight'],
+              'border-gray-300 focus:ring-indigo-400': !fieldErrors['hight']
+            }"
+              placeholder="Select date"
+              name="hight"
+              [(ngModel)]="applicationObj.hight"
+            />
+            <p *ngIf="fieldErrors['hight']" class="mt-1 text-sm text-red-500">{{ fieldErrors['hight'] }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+            <input
+              type="number"
+              class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2"
+              [ngClass]="{
+              'border-red-500 placeholder-red-300 focus:ring-red-400': fieldErrors['weight'],
+              'border-gray-300 focus:ring-indigo-400': !fieldErrors['weight']
+            }"
+              placeholder="Select date"
+              name="weight"
+              [(ngModel)]="applicationObj.weight"
+            />
+            <p *ngIf="fieldErrors['weight']" class="mt-1 text-sm text-red-500">{{ fieldErrors['weight'] }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+            <input
+              type="text"
+              class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2"
+              [ngClass]="{
+              'border-red-500 placeholder-red-300 focus:ring-red-400': fieldErrors['type'],
+              'border-gray-300 focus:ring-indigo-400': !fieldErrors['type']
+            }"
+              placeholder="Select date"
+              name="type"
+              [(ngModel)]="applicationObj.type"
+            />
+            <p *ngIf="fieldErrors['type']" class="mt-1 text-sm text-red-500">{{ fieldErrors['type'] }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end space-x-3 mt-6">
+        <button class="px-4 py-2 rounded-lg bg-gray-300 text-gray-700 hover:bg-gray-400 transition">Cancel</button>
+        <button class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">Submit Application</button>
+      </div>
+    </form>
+
+
+
+  </div>
+</div>
