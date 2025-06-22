@@ -28,9 +28,14 @@
           <td class="px-4 py-3">
             <button
               (click)="openApplicationModal(announcement)"
-              class="px-3 py-1.5 text-sm font-medium bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 rounded-lg transition duration-200 shadow-sm">
+              [disabled]="hasUserApplied(announcement)"
+              class="px-3 py-1.5 text-sm font-medium
+         rounded-lg transition duration-200 shadow-sm
+         bg-indigo-100 text-indigo-600
+         hover:bg-indigo-200 hover:text-indigo-800
+         disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed">
               <i class="fas fa-paper-plane mr-2"></i>
-              Apply
+              {{ hasUserApplied(announcement) ? 'Already Applied' : 'Apply' }}
             </button>
           </td>
 

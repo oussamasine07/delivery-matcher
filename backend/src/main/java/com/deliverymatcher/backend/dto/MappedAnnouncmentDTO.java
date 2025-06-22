@@ -11,6 +11,7 @@ public record MappedAnnouncmentDTO(
         String goodsType,
         Double capacity,
         Driver driver,
-        List<MappedJournyDTO> journies
+        List<MappedJournyDTO> journies,
+        List<MappedAnnouncementAppDTO> applications
 ) {
 }

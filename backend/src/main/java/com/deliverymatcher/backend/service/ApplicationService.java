@@ -5,6 +5,7 @@ import com.deliverymatcher.backend.dto.MappedPackageDTO;
 import com.deliverymatcher.backend.mapper.ApplicationMapper;
 import com.deliverymatcher.backend.model.Application;
 import com.deliverymatcher.backend.model.Pack;
+import com.deliverymatcher.backend.repository.AnnouncementRepository;
 import com.deliverymatcher.backend.repository.ApplicationRapository;
 import com.deliverymatcher.backend.repository.PackageRepository;
 import org.springframework.http.HttpStatus;
@@ -20,23 +21,29 @@ public class ApplicationService {
     private final ApplicationRapository applicationRapository;
     private final PackageRepository packageRepository;
     private final ApplicationMapper applicationMapper;
+    private final AnnouncementRepository announcementRepository;
 
     public ApplicationService (
             final ApplicationRapository applicationRapository,
             final PackageRepository packageRepository,
-            final ApplicationMapper applicationMapper
+            final ApplicationMapper applicationMapper,
+            final AnnouncementRepository announcementRepository
     ) {
         this.applicationRapository = applicationRapository;
         this.packageRepository = packageRepository;
         this.applicationMapper = applicationMapper;
+        this.announcementRepository = announcementRepository;
     }
 
     public ResponseEntity<?> apply (Application application, Pack pack) {
         pack.setApplication(application);
-        Pack savedPack = packageRepository.save(pack); // save pack first
+        Pack savedPack = packageRepository.save(pack);
 
         application.setPack(savedPack);
-        Application savedApplication = applicationRapository.save(application); // then save application
+
+        application.getAnnouncement().getApplications().add(application);
+
+        Application savedApplication = applicationRapository.save(application);
 
         Application newApplication = applicationRapository.findApplicationById( savedApplication.getId() );
 

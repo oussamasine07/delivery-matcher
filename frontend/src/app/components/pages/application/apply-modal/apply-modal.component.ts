@@ -39,6 +39,7 @@ export class ApplyModalComponent implements OnInit {
   }
 
 
+
   fieldErrors: Record<string, string|string[]> = {};
   applicationObj: applicationForm = {
     application_date: "",
@@ -51,7 +52,6 @@ export class ApplyModalComponent implements OnInit {
   onApplyForAnnouncementSubmit (form: FormsModule) {
     this.applicationService.applyForAnnouncement(this.applicationObj).subscribe({
       next: (res: Application) => {
-        console.log( res )
         this.onCloseClick();
       },
       error: e => {

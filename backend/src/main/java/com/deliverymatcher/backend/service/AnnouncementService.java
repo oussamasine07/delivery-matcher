@@ -42,7 +42,7 @@ public class AnnouncementService {
     }
 
     public ResponseEntity<?> getAnnouncements () {
-        List<MappedAnnouncmentDTO> announcements = announcementRepository.findAll()
+        List<MappedAnnouncmentDTO> announcements = announcementRepository.findAllWithApplications()
                 .stream()
                 .map(this.announcementMapper::toDTO)
                 .collect(Collectors.toList());
