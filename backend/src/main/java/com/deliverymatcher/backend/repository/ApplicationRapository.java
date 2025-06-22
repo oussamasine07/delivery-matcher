@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface ApplicationRapository extends JpaRepository<Application, Long> {
+    Application findApplicationById(Long id);
 }

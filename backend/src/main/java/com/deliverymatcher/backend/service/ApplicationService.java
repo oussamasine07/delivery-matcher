@@ -1,7 +1,10 @@
 package com.deliverymatcher.backend.service;
 
+import com.deliverymatcher.backend.dto.MappedApplicationDTO;
+import com.deliverymatcher.backend.dto.MappedPackageDTO;
+import com.deliverymatcher.backend.mapper.ApplicationMapper;
 import com.deliverymatcher.backend.model.Application;
-import com.deliverymatcher.backend.model.Package;
+import com.deliverymatcher.backend.model.Pack;
 import com.deliverymatcher.backend.repository.ApplicationRapository;
 import com.deliverymatcher.backend.repository.PackageRepository;
 import org.springframework.http.HttpStatus;
@@ -13,25 +16,29 @@ public class ApplicationService {
 
     private final ApplicationRapository applicationRapository;
     private final PackageRepository packageRepository;
+    private final ApplicationMapper applicationMapper;
 
     public ApplicationService (
             final ApplicationRapository applicationRapository,
-            final PackageRepository packageRepository
+            final PackageRepository packageRepository,
+            final ApplicationMapper applicationMapper
     ) {
         this.applicationRapository = applicationRapository;
         this.packageRepository = packageRepository;
+        this.applicationMapper = applicationMapper;
     }
 
-    public ResponseEntity<?> apply (Application application, Package pack) {
-        Application newApplication = applicationRapository.save( application );
-        Package newPack = packageRepository.save(pack);
+    public ResponseEntity<?> apply (Application application, Pack pack) {
+        pack.setApplication(application);
+        Pack savedPack = packageRepository.save(pack); // save pack first
 
-        newApplication.setPack( newPack );
-        newPack.setApplication( newApplication );
+        application.setPack(savedPack);
+        Application savedApplication = applicationRapository.save(application); // then save application
 
-        applicationRapository.save(newApplication);
-        packageRepository.save(newPack);
-        return new ResponseEntity<>(newApplication, HttpStatus.OK);
+        Application newApplication = applicationRapository.findApplicationById( savedApplication.getId() );
+
+        MappedApplicationDTO dto = applicationMapper.toDTO(newApplication);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 }

@@ -3,11 +3,9 @@ package com.deliverymatcher.backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "packages")
-public class Package {
+public class Pack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +23,7 @@ public class Package {
     @Column(name = "type")
     private String type;
 
-    @OneToOne(mappedBy = "pack")
+    @OneToOne(cascade = CascadeType.ALL)
     private Application application;
 
     public Long getId() {

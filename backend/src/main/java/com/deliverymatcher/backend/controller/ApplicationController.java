@@ -2,10 +2,8 @@ package com.deliverymatcher.backend.controller;
 
 
 import com.deliverymatcher.backend.dto.ApplyAnnouncementDTO;
-import com.deliverymatcher.backend.model.Announcement;
-import com.deliverymatcher.backend.model.Application;
-import com.deliverymatcher.backend.model.Package;
-import com.deliverymatcher.backend.model.Sender;
+import com.deliverymatcher.backend.model.*;
+import com.deliverymatcher.backend.model.Pack;
 import com.deliverymatcher.backend.repository.AnnouncementRepository;
 import com.deliverymatcher.backend.repository.SenderRepository;
 import com.deliverymatcher.backend.service.ApplicationService;
@@ -53,11 +51,12 @@ public class ApplicationController {
         // make new application instance
         Application application = new Application();
         application.setApplicationDate( applyAnnouncementDTO.application_date() );
+        application.setApplicationStatus(ApplicationStatus.STAND_BY);
         application.setSender( sender );
         application.setAnnouncement( announcement );
 
         // make new package
-        Package pack = new Package();
+        Pack pack = new Pack();
         pack.setWidth( applyAnnouncementDTO.width() );
         pack.setHight(applyAnnouncementDTO.hight());
         pack.setWeight(applyAnnouncementDTO.weight());

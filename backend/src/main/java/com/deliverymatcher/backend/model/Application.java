@@ -4,7 +4,6 @@ package com.deliverymatcher.backend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "applications")
@@ -27,9 +26,8 @@ public class Application {
     @ManyToOne
     private Sender sender;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "package_id", referencedColumnName = "id")
-    private Package pack;
+    @OneToOne(mappedBy = "application")
+    private Pack pack;
 
     public Long getId() {
         return id;
@@ -71,11 +69,11 @@ public class Application {
         this.sender = sender;
     }
 
-    public Package getPack() {
+    public Pack getPack() {
         return pack;
     }
 
-    public void setPack(Package pack) {
+    public void setPack(Pack pack) {
         this.pack = pack;
     }
 }
