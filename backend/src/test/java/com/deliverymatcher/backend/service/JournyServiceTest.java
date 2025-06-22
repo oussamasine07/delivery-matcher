@@ -27,7 +27,6 @@ public class JournyServiceTest {
     @Mock
     JournyRepository journyRepository;
 
-    //@InjectMocks
     private JournyService journyService;
 
     private final JournyMapper journyMapper = Mappers.getMapper(JournyMapper.class);
