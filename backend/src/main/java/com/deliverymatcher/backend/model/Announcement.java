@@ -34,6 +34,9 @@ public class Announcement {
     @ManyToOne
     private Journy journy;
 
+    @OneToMany(mappedBy = "announcement")
+    private List<Application> applications;
+
     public Announcement () {}
 
 
