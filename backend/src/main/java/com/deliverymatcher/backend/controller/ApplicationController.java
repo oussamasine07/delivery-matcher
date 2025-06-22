@@ -66,6 +66,11 @@ public class ApplicationController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<?> getApplications () {
+        return applicationService.getAllApplications();
+    }
+
 }
 
 

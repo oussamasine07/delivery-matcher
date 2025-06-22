@@ -9,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface ApplicationMapper {
     Application toEntity (MappedApplicationDTO mappedApplicationDTO);
     MappedApplicationDTO toDTO(Application application);
+
 }

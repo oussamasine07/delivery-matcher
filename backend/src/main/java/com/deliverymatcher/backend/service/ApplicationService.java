@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ApplicationService {
 
@@ -39,6 +42,15 @@ public class ApplicationService {
 
         MappedApplicationDTO dto = applicationMapper.toDTO(newApplication);
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAllApplications () {
+        List<MappedApplicationDTO> applications = applicationRapository.findAllWithPack()
+                .stream()
+                .map(applicationMapper::toDTO)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(applications, HttpStatus.OK);
     }
 
 }

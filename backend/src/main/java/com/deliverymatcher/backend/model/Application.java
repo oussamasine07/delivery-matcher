@@ -26,7 +26,7 @@ public class Application {
     @ManyToOne
     private Sender sender;
 
-    @OneToOne(mappedBy = "application")
+    @OneToOne(mappedBy = "application", fetch = FetchType.EAGER)
     private Pack pack;
 
     public Long getId() {
