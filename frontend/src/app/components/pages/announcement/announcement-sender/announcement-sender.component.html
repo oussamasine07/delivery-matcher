@@ -27,10 +27,11 @@
           <td class="px-4 py-3">{{ announcement.capacity }}</td>
           <td class="px-4 py-3">
             <button
+              (click)="openApplicationModal(announcement)"
               class="px-3 py-1.5 text-sm font-medium bg-indigo-100 text-indigo-600 hover:bg-indigo-200 hover:text-indigo-800 rounded-lg transition duration-200 shadow-sm">
               <i class="fas fa-paper-plane mr-2"></i>
               Apply
-            </button> <!-- TODO show history of journies as a model -->
+            </button>
           </td>
 
         </tr>
@@ -41,3 +42,9 @@
 
   </div>
 </div>
+
+<app-apply-modal
+  *ngIf="showApplicationModal"
+  (close)="closeApplicationModal()"
+  [currentAnnouncement]="applyAnnouncement"
+></app-apply-modal>
