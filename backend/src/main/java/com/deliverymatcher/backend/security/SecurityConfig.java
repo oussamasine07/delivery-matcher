@@ -20,6 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.deliverymatcher.backend.model.Permission.*;
+import static com.deliverymatcher.backend.model.Role.*;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -40,18 +43,29 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // Allow all OPTIONS requests for CORS preflight
-                        .requestMatchers(
-                                "/user/register"
-                        )
-                        .permitAll()
-                        .requestMatchers(
-                                "/user/login"
-                        )
-                        .permitAll()
-                        .requestMatchers(
-                                "/admin/login"
-                        )
-                        .permitAll()
+                        .requestMatchers( "/user/register" ).hasAnyAuthority()
+                        .requestMatchers( "/user/login" ).hasAnyAuthority()
+                        .requestMatchers( "/admin/login" ).hasAnyAuthority()
+                        // driver permissions
+                        .requestMatchers( "/api/v1/announcement/**" ).hasAnyRole(ADMIN.name(), DRIVER.name())
+                        .requestMatchers( HttpMethod.GET, "/api/v1/announcement/**").hasAnyAuthority(ADMIN_READ.name(), DRIVER_READ.name())
+                        .requestMatchers( HttpMethod.POST, "/api/v1/announcement/**").hasAnyAuthority(ADMIN_CREATE.name(), DRIVER_CREATE.name())
+                        .requestMatchers( HttpMethod.PUT, "/api/v1/announcement/**").hasAnyAuthority(ADMIN_UPDATE.name(), DRIVER_UPDATE.name())
+                        .requestMatchers( HttpMethod.DELETE, "/api/v1/announcement/**").hasAnyAuthority(ADMIN_DELETE.name(), DRIVER_DELETE.name())
+
+                        .requestMatchers(  "/api/v1/journy/**" ).hasAnyRole(ADMIN.name(), DRIVER.name())
+                        .requestMatchers( HttpMethod.GET, "/api/v1/journy/**").hasAnyAuthority(ADMIN_READ.name(), DRIVER_READ.name())
+                        .requestMatchers( HttpMethod.POST, "/api/v1/journy/**").hasAnyAuthority(ADMIN_CREATE.name(), DRIVER_CREATE.name())
+                        .requestMatchers( HttpMethod.PUT, "/api/v1/journy/**").hasAnyAuthority(ADMIN_UPDATE.name(), DRIVER_UPDATE.name())
+                        .requestMatchers( HttpMethod.DELETE, "/api/v1/journy/**").hasAnyAuthority(ADMIN_DELETE.name(), DRIVER_DELETE.name())
+
+                        // sender permissions
+                        .requestMatchers( HttpMethod.GET,  "/api/v1/announcement" ).hasAnyRole(SENDER.name())
+                        .requestMatchers( "/api/v1/application/**" ).hasAnyRole(SENDER.name())
+                        .requestMatchers( HttpMethod.GET, "/api/v1/application/**").hasAnyAuthority(ADMIN_READ.name(), SENDER_READ.name())
+                        .requestMatchers( HttpMethod.POST, "/api/v1/application/**").hasAnyAuthority(ADMIN_CREATE.name(), SENDER_CREATE.name())
+                        .requestMatchers( HttpMethod.PUT, "/api/v1/application/**").hasAnyAuthority(ADMIN_UPDATE.name(), SENDER_UPDATE.name())
+                        .requestMatchers( HttpMethod.DELETE, "/api/v1/application/**").hasAnyAuthority(ADMIN_DELETE.name(), SENDER_DELETE.name())
                         .anyRequest()
                         .authenticated()  // Other requests need auth
                 )
