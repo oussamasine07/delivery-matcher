@@ -10,6 +10,7 @@ import {JournyIndexComponent} from './components/pages/journy/journy-index/journ
 import {
   AnnouncementSenderComponent
 } from './components/pages/announcement/announcement-sender/announcement-sender.component';
+import {TestComponent} from './components/testing/test/test.component';
 
 export const routes: Routes = [
   {
@@ -41,5 +42,9 @@ export const routes: Routes = [
         component: JournyIndexComponent
       }
     ]
+  },
+  {
+    path: "test",
+    component: TestComponent
   }
 ];

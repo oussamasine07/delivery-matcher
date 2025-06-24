@@ -52,7 +52,10 @@ public class AnnouncementService {
     public ResponseEntity<?> fetchAnnouncementsDriverId (Long id) {
         List<MappedAnnouncmentDTO> announcements = announcementRepository.findAnnouncementsByDriverId( id )
                 .stream()
-                .map(this.announcementMapper::toDTO)
+                //.map(this.announcementMapper::toDTO)
+                .map(ann -> {
+                    return announcementMapper.toDTO(ann);
+                })
                 .collect(Collectors.toList());
         return new ResponseEntity<>(announcements, HttpStatus.OK);
     }
@@ -103,5 +106,9 @@ public class AnnouncementService {
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+//    public ResponseEntity<?> getAnnouncementsBySenderId () {
+//
+//    }
 
 }
