@@ -19,7 +19,7 @@ export class AuthService {
   httpClient: HttpClient = inject(HttpClient);
 
   authenticateUser (body: loginForm): Observable<Token> {
-    return this.httpClient.post<Token>("http://localhost:8080/user/login", body).pipe(
+    return this.httpClient.post<Token>("http://localhost:8091/user/login", body).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err)
       })
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   registerUser ( body: registerForm ): Observable<Driver | Sender> {
-    return this.httpClient.post<Driver | Sender>("http://localhost:8080/user/register", body).pipe(
+    return this.httpClient.post<Driver | Sender>("http://localhost:8091/user/register", body).pipe(
       catchError ((err: HttpErrorResponse) => {
         return throwError(() => err)
       })

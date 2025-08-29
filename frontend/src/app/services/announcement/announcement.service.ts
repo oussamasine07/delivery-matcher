@@ -14,7 +14,7 @@ export class AnnouncementService {
   httpClient: HttpClient = inject(HttpClient)
 
   getAllAnnouncements (): Observable<Announcement[]> {
-    return this.httpClient.get<Announcement[]>("http://localhost:8080/api/v1/announcement").pipe(
+    return this.httpClient.get<Announcement[]>("http://localhost:8091/api/v1/announcement").pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })
@@ -22,7 +22,7 @@ export class AnnouncementService {
   }
 
   getAnnouncementsByAuthenticatedDriver (): Observable<Announcement[]> {
-    return this.httpClient.get<Announcement[]>("http://localhost:8080/api/v1/announcement/announcements-by-dirver-id").pipe(
+    return this.httpClient.get<Announcement[]>("http://localhost:8091/api/v1/announcement/announcements-by-dirver-id").pipe(
       catchError((err: HttpErrorResponse)=> {
         return throwError(() => err);
       })
@@ -30,7 +30,7 @@ export class AnnouncementService {
   }
 
   createAnnouncement (body: announcementForm): Observable<Announcement> {
-    return this.httpClient.post<Announcement>("http://localhost:8080/api/v1/announcement/create", body).pipe(
+    return this.httpClient.post<Announcement>("http://localhost:8091/api/v1/announcement/create", body).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })
@@ -39,7 +39,7 @@ export class AnnouncementService {
 
   updateAnnouncement (body: announcementForm, annoucementId: number | null | undefined): Observable<Announcement> {
 
-    return this.httpClient.put<Announcement>(`http://localhost:8080/api/v1/announcement/update/${annoucementId}`, body).pipe(
+    return this.httpClient.put<Announcement>(`http://localhost:8091/api/v1/announcement/update/${annoucementId}`, body).pipe(
       catchError((err: HttpErrorResponse)=> {
         return throwError(() => err);
       })
@@ -47,7 +47,7 @@ export class AnnouncementService {
   }
 
   deleteAnnouncement ( announcementId: number | null | undefined): Observable<any> {
-    return this.httpClient.delete(`http://localhost:8080/api/v1/announcement/delete/${announcementId}`).pipe(
+    return this.httpClient.delete(`http://localhost:8091/api/v1/announcement/delete/${announcementId}`).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err)
       })

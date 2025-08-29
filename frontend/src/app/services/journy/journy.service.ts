@@ -12,7 +12,7 @@ export class JournyService {
   httpClient: HttpClient = inject(HttpClient);
 
   getAllJourniesByDriverId (): Observable<Journy[]> { // TODO update the backend so that we get journies by driver id
-    return this.httpClient.get<Journy[]>("http://localhost:8080/api/v1/journy").pipe(
+    return this.httpClient.get<Journy[]>("http://localhost:8091/api/v1/journy").pipe(
       catchError((err: HttpErrorResponse)=> {
         return throwError(() => err);
       })
@@ -20,7 +20,7 @@ export class JournyService {
   }
 
   createJourny ( body: journyForm): Observable<Journy> {
-    return this.httpClient.post<Journy>("http://localhost:8080/api/v1/journy/create", body).pipe(
+    return this.httpClient.post<Journy>("http://localhost:8091/api/v1/journy/create", body).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })
@@ -28,7 +28,7 @@ export class JournyService {
   }
 
   updateJourny ( body: journyForm, journyId: number | null | undefined ): Observable<Journy> {
-    return this.httpClient.put<Journy>(`http://localhost:8080/api/v1/journy/update/${ journyId }`, body).pipe(
+    return this.httpClient.put<Journy>(`http://localhost:8091/api/v1/journy/update/${ journyId }`, body).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })
@@ -36,7 +36,7 @@ export class JournyService {
   }
 
   deleteJourny ( journyId: number | null | undefined) {
-    return this.httpClient.delete(`http://localhost:8080/api/v1/journy/delete/${ journyId }`).pipe(
+    return this.httpClient.delete(`http://localhost:8091/api/v1/journy/delete/${ journyId }`).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })

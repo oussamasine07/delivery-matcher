@@ -12,7 +12,7 @@ export class ApplicationService {
   httpClient: HttpClient = inject(HttpClient);
 
   applyForAnnouncement (body: applicationForm): Observable<Application> {
-    return this.httpClient.post<Application>("http://localhost:8080/api/v1/application/apply", body).pipe(
+    return this.httpClient.post<Application>("http://localhost:8091/api/v1/application/apply", body).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => err);
       })

@@ -14,7 +14,7 @@
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <i [ngClass]="fieldErrors['first_name'] != null ? 'fas fa-user text-red-300' : 'fas fa-user text-gray-300'"></i>
         </div>
-        <input type="email" required
+        <input type="text" required
                [ngClass]="fieldErrors['first_name'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
                placeholder="First name"
                name="first_name"
@@ -27,7 +27,7 @@
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <i [ngClass]="fieldErrors['last_name'] != null ? 'fas fa-user text-red-300' : 'fas fa-user text-gray-300'"></i>
         </div>
-        <input type="email" required
+        <input type="text" required
                [ngClass]="fieldErrors['last_name'] != null ? 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-red-400 rounded-xl text-white placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent' : 'block w-full pl-10 pr-3 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent'"
                placeholder="Last name"
                name="last_name"
